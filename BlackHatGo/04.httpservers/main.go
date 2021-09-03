@@ -1,13 +1,17 @@
 package main
 
 import "net/http"
+import "context"
+import "fmt"
+import "github.com/gorilla/mux"
+import "github.com/urfave/negroni"
 
 type badAuth struct {
-	username string
-	password string
+	Username string
+	Password string
 }
   
-func (b *badAuth) ServeHttp(w http.ResponseWriter, r *http.Request){
+func (b *badAuth) ServeHTTP(w http.ResponseWriter, r *http.Request, next http.HandlerFunc){
 	username := r.URL.Query().Get("username")
 	password := r.URL.Query().Get("password")
 
@@ -27,15 +31,16 @@ func hello(w http.ResponseWriter, r *http.Request){
 }
 
 func main(){
-	r := mux.NewRouter()	
-	r.HandleFunc("/hello",hello).Methods("GET")
-
+	r := mux.NewRouter()
 	n := negroni.Classic()
+
+    r.HandleFunc("/hello",hello).Methods("GET")
+
 	n.Use(&badAuth{
 		Username: "admin",
-		Password: "password"
+		Password: "password",
 	})
 
-	n.UseHndler(r)
-	http
+	n.UseHandler(r)
+	http.ListenAndServe("localhost:8085",n)
 }
