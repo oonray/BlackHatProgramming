@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\oonray\\git\\BlackHatProgramming\\GrayHatC#\\Basics\\dataclassesinterfaces\\dataclassesinterfaces.fsproj": {}
+    "f:\\git\\BlackHatProgramming\\GrayHatC#\\Basics\\dataclassesinterfaces\\dataclassesinterfaces.fsproj": {}
   },
   "projects": {
-    "c:\\Users\\oonray\\git\\BlackHatProgramming\\GrayHatC#\\Basics\\dataclassesinterfaces\\dataclassesinterfaces.fsproj": {
+    "f:\\git\\BlackHatProgramming\\GrayHatC#\\Basics\\dataclassesinterfaces\\dataclassesinterfaces.fsproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\oonray\\git\\BlackHatProgramming\\GrayHatC#\\Basics\\dataclassesinterfaces\\dataclassesinterfaces.fsproj",
+        "projectUniqueName": "f:\\git\\BlackHatProgramming\\GrayHatC#\\Basics\\dataclassesinterfaces\\dataclassesinterfaces.fsproj",
         "projectName": "dataclassesinterfaces",
-        "projectPath": "c:\\Users\\oonray\\git\\BlackHatProgramming\\GrayHatC#\\Basics\\dataclassesinterfaces\\dataclassesinterfaces.fsproj",
-        "packagesPath": "C:\\Users\\oonray\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\oonray\\git\\BlackHatProgramming\\GrayHatC#\\Basics\\dataclassesinterfaces\\obj\\",
+        "projectPath": "f:\\git\\BlackHatProgramming\\GrayHatC#\\Basics\\dataclassesinterfaces\\dataclassesinterfaces.fsproj",
+        "packagesPath": "C:\\Users\\alexa\\.nuget\\packages\\",
+        "outputPath": "f:\\git\\BlackHatProgramming\\GrayHatC#\\Basics\\dataclassesinterfaces\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\oonray\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\alexa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "V0hmABAZhNgDrbyJaaeE9I8Lpv156Baod/rpHQ8pLrAxxDqh3BxZIcXerIl38RZynhAn9tUqmktkBFF48wCuJQ==",
+  "dgSpecHash": "b+4t+5L0O0zU82XAVLFLsqfc89cw6Kwr8uxJcM2HNZyE9aYMGOLqc1IwrjT1ZRB0WFvGDYxQP5bJn/mftD+ltw==",
   "success": true,
-  "projectFilePath": "c:\\Users\\oonray\\git\\BlackHatProgramming\\GrayHatC#\\Basics\\dataclassesinterfaces\\dataclassesinterfaces.fsproj",
+  "projectFilePath": "f:\\git\\BlackHatProgramming\\GrayHatC#\\Basics\\dataclassesinterfaces\\dataclassesinterfaces.fsproj",
   "expectedPackageFiles": [
-    "C:\\Users\\oonray\\.nuget\\packages\\fsharp.core\\5.0.0\\fsharp.core.5.0.0.nupkg.sha512"
+    "C:\\Users\\alexa\\.nuget\\packages\\fsharp.core\\5.0.0\\fsharp.core.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }

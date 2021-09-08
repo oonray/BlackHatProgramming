@@ -1,19 +1,26 @@
-// Learn more about F# at http://docs.microsoft.com/dotnet/fsharp
-
 open System
 
-type IPerson =
-    abstract member Name: string
-    abstract member Age: int
+type Person =
+    abstract name:string
+    abstract age:int
 
-type FireFighter(name,age) =
-    interface IPerson with
-        member this.Name = name
-        member this.Age = age
+type PublicServant =
+    abstract salary: int
+    abstract work: unit
+
+type FireMan(name,age,salary) =
+    interface Person with
+        member this.name = name
+        member this.age = age
+    interface PublicServant with
+        member this.salary = salary
+        member this.work =
+            printfn "%s is driving to The fire!" (this:>Person).name
 
 
 [<EntryPoint>]
 let main argv =
-    let message = from "F#" // Call the function
-    printfn "Hello world %s" message
-    0 // return an integer exit code
+    let fire: FireMan = new FireMan("John Smith",45,1500)
+    printfn "Hello %s" (fire:> Person).name
+    (fire:> PublicServant).work
+    0
