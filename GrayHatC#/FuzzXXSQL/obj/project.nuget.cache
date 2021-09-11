@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "/k28zTTTYhGCRzDiKLR1UN0Hp3+QMGdbJdVpCMqN4JLmgj36nmMWi4YItb9M7BdiBrkrGqMgVR1sfggyTr2RvQ==",
+  "success": true,
+  "projectFilePath": "c:\\Users\\oonray\\git\\BlackHatProgramming\\GrayHatC#\\FuzzXXSQL\\FuzzXXSQL.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\oonray\\.nuget\\packages\\fsharp.core\\5.0.0\\fsharp.core.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

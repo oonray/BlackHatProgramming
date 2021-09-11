@@ -1,4 +1,5 @@
 open System
+open System.Runtime.InteropServices
 
 type Person =
     abstract name:string
@@ -15,12 +16,14 @@ type FireMan(name,age,salary) =
     interface PublicServant with
         member this.salary = salary
         member this.work =
-            printfn "%s is driving to The fire!" (this:>Person).name
+            scanf "%s is driving to The fire!" (this:>Person).name
 
+module usr32 =
+    [<DllImport("user32")>]
+    extern int MessageBox(IntPtr hWnd,String text,String Caption,int option)
 
 [<EntryPoint>]
 let main argv =
     let fire: FireMan = new FireMan("John Smith",45,1500)
-    printfn "Hello %s" (fire:> Person).name
-    (fire:> PublicServant).work
+    usr32.MessageBox(IntPtr.Zero,(fire:>PublicServant).work,(fire:>Person).name,0) |> ignore
     0

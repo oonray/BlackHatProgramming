@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "7x2RHjlPGtjx1PUbRsqbJVmBwLkyCmwdrKgro+wJk/dDAwKACBCGU2nGVQA31xZkwti6b0b/VlYNlR44NgS4UA==",
+  "success": true,
+  "projectFilePath": "c:\\Users\\oonray\\git\\BlackHatProgramming\\AmsiBypass\\AmsiBypass.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\oonray\\.nuget\\packages\\fsharp.core\\5.0.0\\fsharp.core.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
