@@ -1,0 +1,63 @@
+{
+  "format": 1,
+  "restore": {
+    "c:\\Users\\oonray\\git\\BlackHatProgramming\\GrayHatC#\\FuzzXXSQL\\FuzzXXSQL.fsproj": {}
+  },
+  "projects": {
+    "c:\\Users\\oonray\\git\\BlackHatProgramming\\GrayHatC#\\FuzzXXSQL\\FuzzXXSQL.fsproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "c:\\Users\\oonray\\git\\BlackHatProgramming\\GrayHatC#\\FuzzXXSQL\\FuzzXXSQL.fsproj",
+        "projectName": "FuzzXXSQL",
+        "projectPath": "c:\\Users\\oonray\\git\\BlackHatProgramming\\GrayHatC#\\FuzzXXSQL\\FuzzXXSQL.fsproj",
+        "packagesPath": "C:\\Users\\oonray\\.nuget\\packages\\",
+        "outputPath": "c:\\Users\\oonray\\git\\BlackHatProgramming\\GrayHatC#\\FuzzXXSQL\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\oonray\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "FSharp.Core": {
+              "include": "Runtime, Compile, Build, Native, Analyzers, BuildTransitive",
+              "target": "Package",
+              "version": "[5.0.0, )",
+              "generatePathProperty": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "c:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
