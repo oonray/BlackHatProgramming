@@ -27,5 +27,9 @@ func init(){
 
 func main() {
 	r = mux.NewRouter()
+	for host, proxy := range proxies {
+		r.Host(host).Handler(proxy)
+	}
+	log.Fatal(http.ListenAndServe(":80",r))
 
 }
