@@ -1,6 +1,6 @@
 package main
 
 type BinaryMarchalable interface {
-	MarchalBinary(*metadata) ([]byte, error)
+	MarchalBinary(*Metadata) ([]byte, error)
 	UnmarchalBinary([]byte, *Metadata) error
 }
