@@ -9,14 +9,9 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-//const port int = 8081
-//const con_port int = 3128
-
 var (
 	in net.Listener
 	out net.Conn
-	reader []io.Reader
-	writer []io.Writer
 
 	lport *string
 
@@ -26,7 +21,6 @@ var (
 	cons string
 	lcons string
 
-	cerr chan error
 	done bool
 )
 
@@ -69,11 +63,11 @@ func main() {
 
 		cerr := make(chan error)
 
-		reader = []io.Reader{}
+		reader := []io.Reader{}
 		reader = append(reader,bufio.NewReader(con))
 		reader = append(reader,bufio.NewReader(out))
 
-		writer = []io.Writer{}
+		writer := []io.Writer{}
 		writer = append(writer,bufio.NewWriter(out))
 		writer = append(writer,bufio.NewWriter(con))
 
