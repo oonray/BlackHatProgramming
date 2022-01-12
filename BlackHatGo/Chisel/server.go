@@ -8,7 +8,7 @@ import (
 	"time"
 
 	server "github.com/oonray/BlackHatProgramming/BlackHatGo/Chisel/server"
-	cos "github.com/oonray/BlackHatProgramming/BlackHatGo/Chisel/cos"
+	cos "github.com/oonray/BlackHatProgramming/BlackHatGo/Chisel/share/cos"
 )
 
 var (

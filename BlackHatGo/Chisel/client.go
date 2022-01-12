@@ -10,7 +10,7 @@ import (
 	"time"
 
 	client "github.com/oonray/BlackHatProgramming/BlackHatGo/Chisel/client"
-	cos "github.com/oonray/BlackHatProgramming/BlackHatGo/Chisel/cos"
+	cos "github.com/oonray/BlackHatProgramming/BlackHatGo/Chisel/share/cos"
 )
 
 var (
