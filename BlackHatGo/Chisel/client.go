@@ -9,8 +9,8 @@ import (
 	"strings"
 	"time"
 
-	client "github.com/jpillora/chisel/client"
-	cos "github.com/jpillora/chisel/share/cos"
+	client "github.com/oonray/BlackHatProgramming/Chisel/client"
+	cos "github.com/oonray/BlackHatProgramming/Chisel/cos"
 )
 
 var (
