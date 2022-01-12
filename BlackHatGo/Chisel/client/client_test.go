@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/oonray/BlackHatProgramming/BlackHatGo/Chisel/ccrypto"
+	"github.com/oonray/BlackHatProgramming/BlackHatGo/Chisel/share/ccrypto"
 	"golang.org/x/crypto/ssh"
 )
 
