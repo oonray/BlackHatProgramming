@@ -78,4 +78,9 @@ func (pki *PKI)Save() error {
 	if(err!=nil){return err}
 	pem.Encode(out,&pem.Block{Type:"RSA PRIVATE KEY",Bytes:x509.MarshallPKCS1PrivateKey(pki.priv)})
 	out.Close()
+
+	out, err := os.Create("ca.pub", os.O_WERONLY|os.O_CREATE|os.O_TRUNK,0600)
+	if(err!=nil){return err}
+	out.Write(pki.pub)
+	out.Close()
 }
