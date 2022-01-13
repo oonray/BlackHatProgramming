@@ -48,55 +48,56 @@ func main() {
 	}
 	defer in.Close()
 
-	for {
-		con, err := in.Accept()
-		if err != nil {
-			log.Errorf("Could not accept: %s",err)
-			continue}
-		defer con.Close()
+	go func(){
+		for {
+			con, err := in.Accept()
+			if err != nil {
+				log.Errorf("Could not accept: %s",err)
+				continue}
+			defer con.Close()
 
-		log.Infof("Connecting to %s",cons)
-		out, err = net.Dial("tcp",cons)
-		if err != nil {
-			log.Errorf("Could not connect: %s",err)
-			continue}
+			out, err = net.Dial("tcp",cons)
+			if err != nil {
+				log.Errorf("Could not connect: %s",err)
+				continue}
 
-		cerr := make(chan error)
+			cerr := make(chan error)
 
-		reader := []io.Reader{}
-		reader = append(reader,bufio.NewReader(con))
-		reader = append(reader,bufio.NewReader(out))
+			reader := []io.Reader{}
+			reader = append(reader,bufio.NewReader(con))
+			reader = append(reader,bufio.NewReader(out))
 
-		writer := []io.Writer{}
-		writer = append(writer,bufio.NewWriter(out))
-		writer = append(writer,bufio.NewWriter(con))
+			writer := []io.Writer{}
+			writer = append(writer,bufio.NewWriter(out))
+			writer = append(writer,bufio.NewWriter(con))
 
-		go func(){
-			for {
-				_, err := io.Copy(writer[0],reader[0])
-				if err != nil {
-					cerr <- err
-					break}
-				if done {break}
-			}
-		}()
+			go func(){
+				for {
+					_, err := io.Copy(writer[0],reader[0])
+					if err != nil {
+						cerr <- err
+						break}
+					if done {break}
+				}
+			}()
 
-		go func(){
-			for {
-				_, err := io.Copy(writer[1],reader[1])
-				if err != nil {
-					cerr <- err
-					break}
-				if done {break}
-			}
-		}()
+			go func(){
+				for {
+					_, err := io.Copy(writer[1],reader[1])
+					if err != nil {
+						cerr <- err
+						break}
+					if done {break}
+				}
+			}()
 
-		go func(){
-			for {
-				err := <-cerr 
-				log.Infof("IO Error: %s",err)
-				if done {break}
-			}
-		}()
-	}
+			go func(){
+				for {
+					err := <-cerr 
+					log.Infof("IO Error: %s",err)
+					if done {break}
+				}
+			}()
+		}
+	}()
 }
