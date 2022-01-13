@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"flag"
 	"net"
-	"sync"
 	"bufio"
 	"io"
 	log "github.com/sirupsen/logrus"
@@ -23,7 +22,6 @@ var (
 	lcons string
 
 	done bool
-	wg sync.WaitGroup
 )
 
 func argparse(){
@@ -50,9 +48,7 @@ func main() {
 	}
 	defer in.Close()
 
-	go func(){
-		for {
-			wg.Add(1)
+	for {
 			con, err := in.Accept()
 			if err != nil {
 				log.Errorf("Could not accept: %s",err)
@@ -101,9 +97,6 @@ func main() {
 					if done {break}
 				}
 			}()
-			wg.Done()
-		}
-	}()
-	wg.Wait()
+	}
 }
 
