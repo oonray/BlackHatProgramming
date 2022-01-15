@@ -5,7 +5,7 @@ import (
 	"flag"
 	"strings"
 	"errors"
-	"io/ioutill"
+	"io/ioutil"
 	"github.com/mysteriumnetwork/go-openvpn/openvpn3"
 	log "github.com/sirupsen/logrus"
 )
@@ -62,7 +62,7 @@ func main(){
  
 	openvpn3.SelfCheck(log)
 
-	bytes, err := ioutill.ReadFile(*vpn_file)
+	bytes, err := ioutil.ReadFile(*vpn_file)
 	if err != nil {
 		log.Error(err)
 		return
