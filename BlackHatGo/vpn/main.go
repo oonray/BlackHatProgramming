@@ -1,8 +1,10 @@
 package main
 
 import (
+	"os"
 	"flag"
 	"strings"
+	"errors"
 	"io/ioutill"
 	"github.com/mysteriumnetwork/go-openvpn/openvpn3"
 	log "github.com/sirupsen/logrus"
@@ -34,7 +36,7 @@ func (lc *loggingCallbacks) OnStats(stats openvpn3.Statistics) {
 
 var (
 	vpn_file *string	
-	callbacks *callbacks = &loggingCallbacs{}
+	callbacks *callbacks = &loggingCallbacks{}
 	creds openvpn3.UserCredentials = openvpn3.UserCredentials{}
 )
 
@@ -60,7 +62,7 @@ func main(){
  
 	openvpn3.SelfCheck(log)
 
-	bytes, err := ioutil.ReadFile(*vpn_file)
+	bytes, err := ioutill.ReadFile(*vpn_file)
 	if err != nil {
 		log.Error(err)
 		return
