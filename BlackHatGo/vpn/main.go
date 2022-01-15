@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"strings"
+	"io/ioutill"
 	"github.com/mysteriumnetwork/go-openvpn/openvpn3"
 	log "github.com/sirupsen/logrus"
 )
