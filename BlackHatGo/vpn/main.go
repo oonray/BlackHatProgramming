@@ -3,7 +3,6 @@ package main
 import (
 	"os"
 	"flag"
-	"strings"
 	"errors"
 	"io/ioutil"
 	"github.com/mysteriumnetwork/go-openvpn/openvpn3"
@@ -24,6 +23,7 @@ func argparse() error {
 	if *vpn_file == "" {
 		return errors.New("VPN profile is required")
 	}
+	return nil
 }
 
 func main(){
@@ -35,8 +35,6 @@ func main(){
 		return 
 	}
  
-	openvpn3.SelfCheck(log)
-
 	bytes, err := ioutil.ReadFile(*vpn_file)
 	if err != nil {
 		log.Error(err)
