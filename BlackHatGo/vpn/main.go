@@ -24,11 +24,11 @@ func (lc *loggingCallbacks) Log(text string) {
 }
 
 func (lc *loggingCallbacks) OnEvent(event openvpn3.Event) {
-		log.WithFields(log.Fields{"prog":"openvpn","type":"Event"}).Infof("%s", line)
+		log.WithFields(log.Fields{"prog":"openvpn","type":"Event"}).Infof("%s", event)
 }
 
 func (lc *loggingCallbacks) OnStats(stats openvpn3.Statistics) {
-		log.WithFields(log.Fields{"prog":"openvpn","type":"Stat"}).Infof("%s", line)
+		log.WithFields(log.Fields{"prog":"openvpn","type":"Stat"}).Infof("%s", event)
 }
 
 var (
