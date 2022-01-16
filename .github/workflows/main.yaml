@@ -1,4 +1,4 @@
-name: kali docker
+name: blackhat docker
 
 on:
   push:
@@ -24,4 +24,4 @@ jobs:
         with:
           file: ./BlackHatGo/vpn/Dockerfile
           push: true
-          tags: oonray/kali:latest
+          tags: oonray/blackhat:latest
