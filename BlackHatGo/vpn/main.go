@@ -16,8 +16,8 @@ var (
 
 func argparse() error {
 	vpn_file = flag.String("vp","","The Vpn file to use")
-	flag.StringVar(&creds.Username,"-u","","The username to use")
-	flag.StringVar(&creds.Password,"-p","","The password to use")
+	flag.StringVar(&creds.Username,"u","","The username to use")
+	flag.StringVar(&creds.Password,"p","","The password to use")
 	flag.Parse()
 
 	if *vpn_file == "" {
