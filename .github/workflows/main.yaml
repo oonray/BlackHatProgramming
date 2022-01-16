@@ -3,7 +3,7 @@ name: blackhat docker
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
 jobs:
   docker:
     runs-on: ubuntu-latest
