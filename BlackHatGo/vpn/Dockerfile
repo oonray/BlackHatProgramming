@@ -5,4 +5,4 @@ RUN go get github.com/oonray/BlackHatProgramming/BlackHatGo/tcpforwarder
 RUN go get github.com/oonray/BlackHatProgramming/BlackHatGo/oddproxy
 RUN go get github.com/oonray/BlackHatProgramming/BlackHatGo/vpn
 
-WORKDIR ~/go/bin
+WORKDIR /go/bin
