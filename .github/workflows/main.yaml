@@ -34,10 +34,25 @@ jobs:
 
       - run: mkdir -p artifacts
 
-      - run: GOOS=windows GOARCH=amd64 go  build  -o artifacts/win64-oddproxy ./BlackHatGo/oddproxy/main.go
-      - run: GOOS=windows GOARCH=386   go  build  -o artifacts/win32-oddproxy ./BlackHatGo/oddproxy/main.go
-      - run: GOOS=linux   GOARCH=amd64 go  build  -o artifacts/lin64-oddproxy ./BlackHatGo/oddproxy/main.go
-      - run: GOOS=linux   GOARCH=386   go  build  -o artifacts/lin32-oddproxy ./BlackHatGo/oddproxy/main.go
+      - run: GOOS=windows GOARCH=amd64 go  build  -o artifacts/win64-oddproxy.exe ./BlackHatGo/oddproxy/main.go
+      - run: GOOS=windows GOARCH=386   go  build  -o artifacts/win32-oddproxy.exe ./BlackHatGo/oddproxy/main.go
+      - run: GOOS=linux   GOARCH=amd64 go  build  -o artifacts/lin64-oddproxy     ./BlackHatGo/oddproxy/main.go
+      - run: GOOS=linux   GOARCH=386   go  build  -o artifacts/lin32-oddproxy     ./BlackHatGo/oddproxy/main.go
+
+      - run: GOOS=windows GOARCH=amd64 go  build  -o artifacts/win64-socks5.exe ./BlackHatGo/socks5/socks5.go
+      - run: GOOS=windows GOARCH=386   go  build  -o artifacts/win32-socks5.exe ./BlackHatGo/socks5/socks5.go
+      - run: GOOS=linux   GOARCH=amd64 go  build  -o artifacts/lin64-socks5     ./BlackHatGo/socks5/socks5.go
+      - run: GOOS=linux   GOARCH=386   go  build  -o artifacts/lin32-socks5     ./BlackHatGo/socks5/socks5.go
+
+      - run: GOOS=windows GOARCH=amd64 go  build  -o artifacts/win64-python.exe ./BlackHatGo/python/main.go
+      - run: GOOS=windows GOARCH=386   go  build  -o artifacts/win32-python.exe ./BlackHatGo/python/main.go
+      - run: GOOS=linux   GOARCH=amd64 go  build  -o artifacts/lin64-python     ./BlackHatGo/python/main.go
+      - run: GOOS=linux   GOARCH=386   go  build  -o artifacts/lin32-python     ./BlackHatGo/python/main.go
+
+      - run: GOOS=windows GOARCH=amd64 go  build  -o artifacts/win64-python.exe ./BlackHatGo/tcpforwarder/main.go
+      - run: GOOS=windows GOARCH=386   go  build  -o artifacts/win32-python.exe ./BlackHatGo/tcpforwarder/main.go
+      - run: GOOS=linux   GOARCH=amd64 go  build  -o artifacts/lin64-python     ./BlackHatGo/tcpforwarder/main.go
+      - run: GOOS=linux   GOARCH=386   go  build  -o artifacts/lin32-python     ./BlackHatGo/tcpforwarder/main.go
 
       - uses: ncipollo/release-action@v1
         with:
