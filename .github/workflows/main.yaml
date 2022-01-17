@@ -28,8 +28,6 @@ jobs:
 
   binaries:
     runs-on: ubuntu-latest
-    permissions:
-      content: write
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v2
@@ -43,5 +41,6 @@ jobs:
 
       - uses: ncipollo/release-action@v1
         with:
+          name: latest
           arifacts: artifacts/*
-
+          token: ${{ secrets.GITHUB_TOKEN }}
