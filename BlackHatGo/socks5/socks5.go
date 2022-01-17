@@ -14,7 +14,7 @@ var (
 	lp *string
 )
 
-func argparse()error{
+func argparse() error {
 	lp = flag.String("lp","","Port to listen to")
 	flag.Parse()
 
