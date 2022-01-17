@@ -1,10 +1,12 @@
 package main
 
 import (
+	"os"
+	"log"
 	"fmt"
 	"flag"
     "github.com/things-go/go-socks5"
-	log "github.com/sirupsen/logrus"
+	logR "github.com/sirupsen/logrus"
 )
 
 var (
@@ -17,10 +19,12 @@ func argparse(){
 }
 
 func main() {
-	server := socks5.NewServer()
+	server := socks5.NewServer(
+		socks5.WithLogger(socks5.NewLogger(log.New(os.Stdout, "socks5: ", log.LstdFlags))),
+	)
 
 	if err := server.ListenAndServe("tcp",fmt.Sprintf(":%s",*lp));err != nil {
-		log.Fatalf("%s",err)
+		logR.Fatalf("%s",err)
 	}
 }
 
