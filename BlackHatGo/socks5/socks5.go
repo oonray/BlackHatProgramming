@@ -24,7 +24,7 @@ func argparse(){
 func main() {
 	server := socks5.NewServer(
 		socks5.WithLogger(
-			socks5.NewLogger(log.New()),
+			log.New(),
 		),
 	)
 
