@@ -44,10 +44,10 @@ jobs:
       - run: GOOS=linux   GOARCH=amd64 go  build  -o artifacts/lin64-socks5     BlackHatGo/socks5/socks5.go
       - run: GOOS=linux   GOARCH=386   go  build  -o artifacts/lin32-socks5     BlackHatGo/socks5/socks5.go
 
-      - run: GOOS=windows GOARCH=amd64 go  build  -o artifacts/win64-python.exe BlackHatGo/python/main.go
-      - run: GOOS=windows GOARCH=386   go  build  -o artifacts/win32-python.exe BlackHatGo/python/main.go
-      - run: GOOS=linux   GOARCH=amd64 go  build  -o artifacts/lin64-python     BlackHatGo/python/main.go
-      - run: GOOS=linux   GOARCH=386   go  build  -o artifacts/lin32-python     BlackHatGo/python/main.go
+      #- run: GOOS=windows GOARCH=amd64 go  build  -o artifacts/win64-python.exe BlackHatGo/python/main.go
+      #- run: GOOS=windows GOARCH=386   go  build  -o artifacts/win32-python.exe BlackHatGo/python/main.go
+      #- run: GOOS=linux   GOARCH=amd64 go  build  -o artifacts/lin64-python     BlackHatGo/python/main.go
+      #- run: GOOS=linux   GOARCH=386   go  build  -o artifacts/lin32-python     BlackHatGo/python/main.go
 
       - run: GOOS=windows GOARCH=amd64 go  build  -o artifacts/win64-tcpforwarder.exe BlackHatGo/tcpforwarder/main.go
       - run: GOOS=windows GOARCH=386   go  build  -o artifacts/win32-tcpforwarder.exe BlackHatGo/tcpforwarder/main.go
