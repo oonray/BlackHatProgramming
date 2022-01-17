@@ -22,11 +22,7 @@ func argparse(){
 }
 
 func main() {
-	server := socks5.NewServer(
-		socks5.WithLogger(
-			log.New(),
-		),
-	)
+	server := socks5.NewServer()
 
 	if err := server.ListenAndServe("tcp",fmt.Sprintf(":%s",lp));err != nil {
 		log.Fatalf("%s",err)
