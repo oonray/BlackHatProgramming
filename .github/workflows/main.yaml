@@ -29,41 +29,21 @@ jobs:
   binaries:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
       - name: make artifacts repo
         run:
           - mkdir -p /opt/artifacts
 
       # oddproxy
       # win64
-      - name: compile o-w64
-        uses: actions/checkout@v2
-        uses: actions/setup-go@v2
+      - name: compile
+        uses:
+          - actions/checkout@v2
+          - actions/setup-go@v2
         run:
           - GOOS=windows GOARCH=amd64 go -o /opt/artifacts/win64-oddproxy build BlacHatGo/oddproxy/
-
-      #win32
-      - name: compile o-w32
-        uses: actions/checkout@v2
-        uses: actions/setup-go@v2
-        run:
-          - GOOS=windows GOARCH=386 go -o /opt/artifacts/win32-oddproxy build BlacHatGo/oddproxy/
-
-      # win64
-      - name: compile o-l64
-        uses: actions/checkout@v2
-        uses: actions/setup-go@v2
-        run:
-          - GOOS=linux GOARCH=amd64 go -o /opt/artifacts/lin64-oddproxy build BlacHatGo/oddproxy/
-
-      #win32
-      - name: compile o-l32
-        uses: actions/checkout@v2
-        uses: actions/setup-go@v2
-        run:
-          - GOOS=linux GOARCH=386 go -o /opt/artifacts/lin32-oddproxy build BlacHatGo/oddproxy/
+          - GOOS=windows GOARCH=386   go -o /opt/artifacts/win32-oddproxy build BlacHatGo/oddproxy/
+          - GOOS=linux   GOARCH=amd64 go -o /opt/artifacts/lin64-oddproxy build BlacHatGo/oddproxy/
+          - GOOS=linux   GOARCH=386   go -o /opt/artifacts/lin32-oddproxy build BlacHatGo/oddproxy/
 
 
       - name: 'Upload'
