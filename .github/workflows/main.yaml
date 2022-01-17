@@ -33,10 +33,11 @@ jobs:
       - run: mkdir -p repo
 
       - uses: actions/checkout@v2
-        with:
-          path: 'repo'
-
       - uses: actions/setup-go@v2
+
+      - run: pwd
+      - run: ls
+      - run: echo $GOPATH
 
       - run: GOOS=windows GOARCH=amd64 go  build  -o artifacts/win64-oddproxy repo/BlacHatGo/oddproxy/
       - run: GOOS=windows GOARCH=386   go  build  -o artifacts/win32-oddproxy repo/BlacHatGo/oddproxy/
