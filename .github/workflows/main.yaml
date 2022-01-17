@@ -32,15 +32,12 @@ jobs:
       - name: make artifacts repo
         run: mkdir -p /opt/artifacts
 
-      # oddproxy
-      # win64
-      - name: compile
-        uses: actions/checkout@v2
-        uses: actions/setup-go@v2
-        run: GOOS=windows GOARCH=amd64 go -o /opt/artifacts/win64-oddproxy build BlacHatGo/oddproxy/
-        run: GOOS=windows GOARCH=386   go -o /opt/artifacts/win32-oddproxy build BlacHatGo/oddproxy/
-        run: GOOS=linux   GOARCH=amd64 go -o /opt/artifacts/lin64-oddproxy build BlacHatGo/oddproxy/
-        run: GOOS=linux   GOARCH=386   go -o /opt/artifacts/lin32-oddproxy build BlacHatGo/oddproxy/
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+      - run: GOOS=windows GOARCH=amd64 go -o /opt/artifacts/win64-oddproxy build BlacHatGo/oddproxy/
+      - run: GOOS=windows GOARCH=386   go -o /opt/artifacts/win32-oddproxy build BlacHatGo/oddproxy/
+      - run: GOOS=linux   GOARCH=amd64 go -o /opt/artifacts/lin64-oddproxy build BlacHatGo/oddproxy/
+      - run: GOOS=linux   GOARCH=386   go -o /opt/artifacts/lin32-oddproxy build BlacHatGo/oddproxy/
 
 
       - name: 'Upload'
