@@ -28,24 +28,20 @@ jobs:
 
   binaries:
     runs-on: ubuntu-latest
+    permissions:
+      content: write
     steps:
-      - run: mkdir -p artifacts
-      - run: mkdir -p repo
-
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v2
 
-      - run: pwd
-      - run: ls
-      - run: echo $GOPATH
+      - run: mkdir -p artifacts
 
       - run: GOOS=windows GOARCH=amd64 go  build  -o artifacts/win64-oddproxy ./BlackHatGo/oddproxy/main.go
       - run: GOOS=windows GOARCH=386   go  build  -o artifacts/win32-oddproxy ./BlackHatGo/oddproxy/main.go
       - run: GOOS=linux   GOARCH=amd64 go  build  -o artifacts/lin64-oddproxy ./BlackHatGo/oddproxy/main.go
       - run: GOOS=linux   GOARCH=386   go  build  -o artifacts/lin32-oddproxy ./BlackHatGo/oddproxy/main.go
 
-      - name: 'Upload'
-        uses: actions/upload-artifact@v2
+      - uses: ncipollo/release-action@v1
         with:
-          name: all
-          path: artifacts/*
+          arifacts: artifacts/*
+
