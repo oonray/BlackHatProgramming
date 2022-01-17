@@ -1,3 +1,3 @@
 module github.com/oonray/BlackHatProgramming
 
-go 1.17
+go 1.15
