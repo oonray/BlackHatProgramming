@@ -39,10 +39,10 @@ jobs:
       - run: ls
       - run: echo $GOPATH
 
-      - run: GOOS=windows GOARCH=amd64 go  build  -o artifacts/win64-oddproxy ./BlacHatGo/oddproxy/main.go
-      - run: GOOS=windows GOARCH=386   go  build  -o artifacts/win32-oddproxy ./BlacHatGo/oddproxy/main.go
-      - run: GOOS=linux   GOARCH=amd64 go  build  -o artifacts/lin64-oddproxy ./BlacHatGo/oddproxy/main.go
-      - run: GOOS=linux   GOARCH=386   go  build  -o artifacts/lin32-oddproxy ./BlacHatGo/oddproxy/main.go
+      - run: GOOS=windows GOARCH=amd64 go  build  -o artifacts/win64-oddproxy ./BlackHatGo/oddproxy
+      - run: GOOS=windows GOARCH=386   go  build  -o artifacts/win32-oddproxy ./BlackHatGo/oddproxy
+      - run: GOOS=linux   GOARCH=amd64 go  build  -o artifacts/lin64-oddproxy ./BlackHatGo/oddproxy
+      - run: GOOS=linux   GOARCH=386   go  build  -o artifacts/lin32-oddproxy ./BlackHatGo/oddproxy
 
       - name: 'Upload'
         uses: actions/upload-artifact@v2
