@@ -42,5 +42,5 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           name: latest
-          arifact: artifacts/*
+          artifacts: artifacts/*
           token: ${{ secrets.GITHUB_TOKEN }}
