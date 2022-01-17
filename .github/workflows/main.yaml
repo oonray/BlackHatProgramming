@@ -29,25 +29,25 @@ jobs:
   binaries:
     runs-on: ubuntu-latest
     steps:
-      - run: mkdir -p /opt/artifacts
-      - run: mkdir -p /opt/repo
+      - run: mkdir -p artifacts
+      - run: mkdir -p repo
 
       - uses: actions/checkout@v2
         with:
-          path: '/opt/repo'
+          path: 'repo'
 
       - uses: actions/setup-go@v2
 
       - run: go mod tidy
       - run: ls /opt/repo
 
-      - run: GOOS=windows GOARCH=amd64 go  build  -o /opt/artifacts/win64-oddproxy /opt/repo/BlacHatGo/oddproxy/
-      - run: GOOS=windows GOARCH=386   go  build  -o /opt/artifacts/win32-oddproxy /opt/repo/BlacHatGo/oddproxy/
-      - run: GOOS=linux   GOARCH=amd64 go  build  -o /opt/artifacts/lin64-oddproxy /opt/repo/BlacHatGo/oddproxy/
-      - run: GOOS=linux   GOARCH=386   go  build  -o /opt/artifacts/lin32-oddproxy /opt/repo/BlacHatGo/oddproxy/
+      - run: GOOS=windows GOARCH=amd64 go  build  -o artifacts/win64-oddproxy repo/BlacHatGo/oddproxy/
+      - run: GOOS=windows GOARCH=386   go  build  -o artifacts/win32-oddproxy repo/BlacHatGo/oddproxy/
+      - run: GOOS=linux   GOARCH=amd64 go  build  -o artifacts/lin64-oddproxy repo/BlacHatGo/oddproxy/
+      - run: GOOS=linux   GOARCH=386   go  build  -o artifacts/lin32-oddproxy repo/BlacHatGo/oddproxy/
 
       - name: 'Upload'
         uses: actions/upload-artifact@v2
         with:
           name: all
-          path: /opt/artifacts/*
+          path: artifacts/*
