@@ -33,7 +33,9 @@ jobs:
       - run: mkdir -p /opt/repo
 
       - uses: actions/checkout@v2
-        path: '/opt/repo'
+        with:
+          path: '/opt/repo'
+
       - uses: actions/setup-go@v2
 
       - run: go mod tidy
