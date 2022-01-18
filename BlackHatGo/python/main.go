@@ -1,28 +1,38 @@
 package main
 
+//#cgo pkg-config: python-3.8
+//#cgo LDFLAGS: -L/usr/lib/python3.8/config-3.8-x86_64-linux-gnu -L/usr/lib -lpython3.8 -lcrypt -lpthread -ldl  -lutil -lm -lm
+//#define PY_SSIZE_T_CLEAN
+//#include <Python.h>
+//
+//static int Run(char *name){
+//  PyObject *obj = Py_BuildValue("s", name);
+//	FILE *f = _Py_fopen_obj(obj, "r+");
+//    int res = PyRun_SimpleFileEx(f,name,1);
+//    return res;
+// }
+import "C"
+
 import (
-	"flag"
 	"errors"
-	log "github.com/sirupsen/logrus"
-    python "github.com/sbinet/go-python"
+	"flag"
+	"log"
 )
 
 var (
 	file *string
-	str *string
+	str  *string
 )
 
-func init(){
-    python.Initialize()
-}
-
 func argparse() error {
-	file := flag.String("f","","File to use")
-	str := flag.String("c","","String to run")
+	file = flag.String("f", "", "File to use")
+	str = flag.String("c", "", "String to run")
 	flag.Parse()
+
 	if *str == "" && *file == "" {
 		return errors.New("Need eighter string or file to execute")
 	}
+
 	if *str != "" && *file != "" {
 		return errors.New("Need eighter string or file to execute, not both")
 	}
@@ -31,21 +41,22 @@ func argparse() error {
 }
 
 func main() {
-	init()
-    defer python.Finalize()
+	C.Py_Initialize()
+	defer C.Py_Finalize()
 
-	err:=argparse()
+	err := argparse()
 	if err != nil {
 		log.Fatal(err)
 		flag.PrintDefaults()
 		return
 	}
 
-	if *file != "" {  
-		python.PyRun_SimpleFile(*file)
+	if *file != "" {
+		cstr := C.CString(*file)
+		C.Run(cstr)
 	}
 
-	if *file != "" {  
-		python.PyRun_SimpleString(*str)
-		}
+	if *str != "" {
+		C.PyRun_SimpleString(C.CString(*str))
+	}
 }
