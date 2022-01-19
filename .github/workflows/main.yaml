@@ -33,7 +33,7 @@ jobs:
       - uses: actions/setup-go@v2
 
       - run: mkdir -p artifacts
-      - run: apt-get install -y python3 python3-dev
+      - run: sudo apt-get install -y python3 python3-dev
 
       - run: GOOS=windows GOARCH=amd64 go  build  -o artifacts/win64-oddproxy.exe BlackHatGo/oddproxy/main.go
       - run: GOOS=windows GOARCH=386   go  build  -o artifacts/win32-oddproxy.exe BlackHatGo/oddproxy/main.go
