@@ -1,23 +1,25 @@
 package main
 
-//#cgo pkg-config: python-3.8
-//#cgo LDFLAGS: -L/usr/lib/python3.8/config-3.8-x86_64-linux-gnu -L/usr/lib -lpython3.8 -lcrypt -lpthread -ldl  -lutil -lm -lm
-//#define PY_SSIZE_T_CLEAN
-//#include <Python.h>
-//
-//static int Run(char *name){
-//  PyObject *obj = Py_BuildValue("s", name);
-//	FILE *f = _Py_fopen_obj(obj, "r+");
-//    int res = PyRun_SimpleFileEx(f,name,1);
-//    return res;
-// }
-import "C"
-
 import (
 	"errors"
 	"flag"
 	"log"
 )
+
+/*
+#cgo pkg-config: python-3.8
+#cgo LDFLAGS: -L/usr/lib/python3.8/config-3.8-x86_64-linux-gnu -L/usr/lib -lpython3.8 -lcrypt -lpthread -ldl  -lutil -lm -lm
+#define PY_SSIZE_T_CLEAN
+#include <Python.h>
+
+static int Run(char *name){
+PyObject *obj = Py_BuildValue("s", name);
+FILE *f = _Py_fopen_obj(obj, "r+");
+	int res = PyRun_SimpleFileEx(f,name,1);
+	return res;
+}
+*/
+import "C"
 
 var (
 	file *string
