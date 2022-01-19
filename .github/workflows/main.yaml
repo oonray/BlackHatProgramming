@@ -45,7 +45,7 @@ jobs:
       - run: GOOS=linux   GOARCH=amd64 go  build  -o artifacts/lin64-socks5     BlackHatGo/socks5/socks5.go
       - run: GOOS=linux   GOARCH=386   go  build  -o artifacts/lin32-socks5     BlackHatGo/socks5/socks5.go
 
-      - run: CC=x86_64-w64-mingw32-gcc  GOOS=windows GOARCH=amd64  CGO_ENABLED=1  go  build  -o artifacts/win64-python.exe BlackHatGo/python/main.go
+      #- run: CC=x86_64-w64-mingw32-gcc  GOOS=windows GOARCH=amd64  CGO_ENABLED=1  go  build  -o artifacts/win64-python.exe BlackHatGo/python/main.go
       - run: CC=i686-w64-mingw32-gcc    GOOS=windows GOARCH=386    CGO_ENABLED=1  go  build  -o artifacts/win32-python.exe BlackHatGo/python/main.go
       - run: CC=x86_64-w64-mingw32-gcc  GOOS=linux   GOARCH=amd64  CGO_ENABLED=1  go  build  -o artifacts/lin64-python     BlackHatGo/python/main.go
       - run: CC=i686-w64-mingw32-gcc    GOOS=linux   GOARCH=386    CGO_ENABLED=1  go  build  -o artifacts/lin32-python     BlackHatGo/python/main.go
