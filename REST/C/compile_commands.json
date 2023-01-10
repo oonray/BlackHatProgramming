@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/home/oonray/.git/BlackHatProgramming/REST/C/build",
+  "command": "/usr/bin/cc  -I/home/oonray/.git/BlackHatProgramming/REST/C/inc/mongoose  -o CMakeFiles/webserver.dir/inc/mongoose/mongoose.c.o -c /home/oonray/.git/BlackHatProgramming/REST/C/inc/mongoose/mongoose.c",
+  "file": "/home/oonray/.git/BlackHatProgramming/REST/C/inc/mongoose/mongoose.c"
+},
+{
+  "directory": "/home/oonray/.git/BlackHatProgramming/REST/C/build",
+  "command": "/usr/bin/cc  -I/home/oonray/.git/BlackHatProgramming/REST/C/inc/mongoose  -o CMakeFiles/webserver.dir/src/webserver.c.o -c /home/oonray/.git/BlackHatProgramming/REST/C/src/webserver.c",
+  "file": "/home/oonray/.git/BlackHatProgramming/REST/C/src/webserver.c"
+},
+{
+  "directory": "/home/oonray/.git/BlackHatProgramming/REST/C/build",
+  "command": "/usr/bin/cc  -I/home/oonray/.git/BlackHatProgramming/REST/C/inc/mongoose  -o CMakeFiles/webserver.dir/src/main.c.o -c /home/oonray/.git/BlackHatProgramming/REST/C/src/main.c",
+  "file": "/home/oonray/.git/BlackHatProgramming/REST/C/src/main.c"
+}
+]
