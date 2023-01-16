@@ -2,36 +2,33 @@ package main
 
 import (
 	"fmt"
-	"html"
 	"net/http"
-	"rest/romanNumerals"
-	"stringconv"
-	"strings"
 	"time"
+
+	mux "github.com/gorilla/mux"
+	log "github.com/sirupsen/logrus"
 )
 
-func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		urlPathElements := strings.Split(r.URL.Path, "/")
-		if urlPathElements[1] == "roman_number" {
-			number, _ := stringconv.Atoi(strings.TrimSpace(urlPathElements[2]))
-			if number == 0 || number > 10 {
-				w.WriteHeader(http.StatusNotFound)
-				return
-			}
-			fmt.Fprintf(w, "%q", html.EscapeString(romanNumerals.Numerals[number]))
-			return
-		}
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte("400 - Bad request"))
-	})
+const Listen string = "127.0.0.1:8000"
 
-	s := http.Server{
-		Addr:           ":8000",
-		ReadTimeout:    10 * time.Second,
-		WriteTimeout:   10 * time.Second,
-		MaxHeaderBytes: 1 << 20,
+var R *mux.Router
+
+func middleware(handler http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println("Executing middleware before")
+		handler.ServeHTTP(w, r)
+		fmt.Println("Executing middleware after")
+	})
+}
+
+func main() {
+	srv := &http.Server{
+		Addr:         Listen,
+		Handler:      R,
+		WriteTimeout: 15 * time.Second,
+		ReadTimeout:  15 * time.Second,
 	}
 
-	s.ListenAndServe()
+	log.Infof("Listening on %s", Listen)
+	log.Fatal(srv.ListenAndServe())
 }
