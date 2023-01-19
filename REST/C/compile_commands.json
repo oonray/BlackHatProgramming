@@ -11,6 +11,11 @@
 },
 {
   "directory": "/home/oonray/.git/BlackHatProgramming/REST/C/build",
+  "command": "/usr/bin/cc  -I/home/oonray/.git/BlackHatProgramming/REST/C/inc/mongoose  -o CMakeFiles/webserver.dir/src/middleware/middleware.c.o -c /home/oonray/.git/BlackHatProgramming/REST/C/src/middleware/middleware.c",
+  "file": "/home/oonray/.git/BlackHatProgramming/REST/C/src/middleware/middleware.c"
+},
+{
+  "directory": "/home/oonray/.git/BlackHatProgramming/REST/C/build",
   "command": "/usr/bin/cc  -I/home/oonray/.git/BlackHatProgramming/REST/C/inc/mongoose  -o CMakeFiles/webserver.dir/src/main.c.o -c /home/oonray/.git/BlackHatProgramming/REST/C/src/main.c",
   "file": "/home/oonray/.git/BlackHatProgramming/REST/C/src/main.c"
 }

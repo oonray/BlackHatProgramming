@@ -1,3 +1,4 @@
+#include "middleware.h"
 #include "webserver.h"
 
 int main(int argc, char *argv[]) {
