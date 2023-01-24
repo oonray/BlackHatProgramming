@@ -1,4 +1,4 @@
-package main
+package sqldb
 
 import (
 	"gorm.io/driver/sqlite"
@@ -33,7 +33,7 @@ func (s *SQLServer) GetBooks(author string) *[]Book {
 	return &book
 }
 
-func NewSQLServer(name string) (*SQLServer, error) {
+func New(name string) (*SQLServer, error) {
 	var err error = nil
 
 	sql := new(SQLServer)
