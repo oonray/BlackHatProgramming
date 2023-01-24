@@ -8,7 +8,8 @@ import (
 
 	handlers "github.com/gorilla/handlers"
 	mux "github.com/gorilla/mux"
-	"github.com/justinas/alice"
+	// rpc "github.com/gorilla/rpc"
+	alice "github.com/justinas/alice"
 	log "github.com/sirupsen/logrus"
 	md "rest/middleware"
 )
