@@ -3,48 +3,41 @@ package jsonserver
 import (
 	"net/http"
 
-	rpc "github.com/gorilla/rpc"
-	jrpc "github.com/gorilla/rpc/json"
-	log "github.com/sirupsen/logrus"
-
 	sqldb "bookdb/sqldb"
-
-	"gorm.io/gorm"
 )
 
 type Args struct {
-	book sqldb.Book
+	Book sqldb.Book
 }
 
 type JSONServer struct {
-	Db *gorm.DB
+	Db *sqldb.SQLServer
 }
 
-func New(db *gorm.DB) (*JSONServer, error) {
+func New(path string) (*JSONServer, error) {
 	var err error = nil
 
 	server := new(JSONServer)
-	server.Db, err = sqldb.New("./test.db")
+	server.Db, err = sqldb.New(path)
 
 	if err != nil {
 		return nil, err
 	}
+
 	return server, nil
 }
 
 func (j *JSONServer) GETBook(r *http.Request, args Args, reply *[]sqldb.Book) error {
-	var books []sqldb.Book
-	j.Db.Find(&books, args.book)
-	*reply = books
+	reply = j.Db.GetBookAuthor(&args.Book.Author)
 	return nil
 }
 
 func (j *JSONServer) GETBooks(r *http.Request, args Args, reply *[]sqldb.Book) error {
-	var books []sqldb.Book
-	*reply = books
+	reply = j.Db.GetBooks()
 	return nil
 }
 
 func (j *JSONServer) PUTBook(r *http.Request, args Args, _ *[]sqldb.Book) error {
-	return j.Db.Create(args.book)
+	j.Db.ADDBook(&args.Book)
+	return nil
 }

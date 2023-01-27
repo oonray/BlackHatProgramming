@@ -7,8 +7,8 @@ import (
 )
 
 const (
-	addr string = "localhost:1234"
-	call string = "TimeServer.GiveServerTime"
+	addr string = "localhost:8181"
+	call string = "JSONServer.GetBooks"
 )
 
 var (

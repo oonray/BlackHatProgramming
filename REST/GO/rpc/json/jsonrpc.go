@@ -54,8 +54,5 @@ func main() {
 
 	r := mux.NewRouter()
 	r.Handle("/rpc", s)
-	log.Infof("Starting handler on :8181")
-	if err := http.ListenAndServe(":8181", r); err != nil {
-		log.Errorf("Could not serve: %s")
-	}
+	http.ListenAndServe(":8000", r)
 }
