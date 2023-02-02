@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.12.4
-// source: transfer.proto
+// source: stream.proto
 
 package datafiles
 
@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MoneyTransactionClient interface {
-	MakeTransaction(ctx context.Context, in *TransactionRequest, opts ...grpc.CallOption) (*TransactionResponse, error)
+	MakeTransaction(ctx context.Context, in *TransactionRequest, opts ...grpc.CallOption) (MoneyTransaction_MakeTransactionClient, error)
 }
 
 type moneyTransactionClient struct {
@@ -33,28 +33,51 @@ func NewMoneyTransactionClient(cc grpc.ClientConnInterface) MoneyTransactionClie
 	return &moneyTransactionClient{cc}
 }
 
-func (c *moneyTransactionClient) MakeTransaction(ctx context.Context, in *TransactionRequest, opts ...grpc.CallOption) (*TransactionResponse, error) {
-	out := new(TransactionResponse)
-	err := c.cc.Invoke(ctx, "/datafiles.MoneyTransaction/MakeTransaction", in, out, opts...)
+func (c *moneyTransactionClient) MakeTransaction(ctx context.Context, in *TransactionRequest, opts ...grpc.CallOption) (MoneyTransaction_MakeTransactionClient, error) {
+	stream, err := c.cc.NewStream(ctx, &MoneyTransaction_ServiceDesc.Streams[0], "/datafiles.MoneyTransaction/MakeTransaction", opts...)
 	if err != nil {
 		return nil, err
 	}
-	return out, nil
+	x := &moneyTransactionMakeTransactionClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type MoneyTransaction_MakeTransactionClient interface {
+	Recv() (*TransactionResponse, error)
+	grpc.ClientStream
+}
+
+type moneyTransactionMakeTransactionClient struct {
+	grpc.ClientStream
+}
+
+func (x *moneyTransactionMakeTransactionClient) Recv() (*TransactionResponse, error) {
+	m := new(TransactionResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
 }
 
 // MoneyTransactionServer is the server API for MoneyTransaction service.
 // All implementations must embed UnimplementedMoneyTransactionServer
 // for forward compatibility
 type MoneyTransactionServer interface {
-	MakeTransaction(context.Context, *TransactionRequest) (*TransactionResponse, error)
+	MakeTransaction(*TransactionRequest, MoneyTransaction_MakeTransactionServer) error
 }
 
 // UnimplementedMoneyTransactionServer must be embedded to have forward compatible implementations.
 type UnimplementedMoneyTransactionServer struct {
 }
 
-func (UnimplementedMoneyTransactionServer) MakeTransaction(context.Context, *TransactionRequest) (*TransactionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method MakeTransaction not implemented")
+func (UnimplementedMoneyTransactionServer) MakeTransaction(*TransactionRequest, MoneyTransaction_MakeTransactionServer) error {
+	return status.Errorf(codes.Unimplemented, "method MakeTransaction not implemented")
 }
 func (UnimplementedMoneyTransactionServer) mustEmbedUnimplementedMoneyTransactionServer() {}
 
@@ -69,22 +92,25 @@ func RegisterMoneyTransactionServer(s grpc.ServiceRegistrar, srv MoneyTransactio
 	s.RegisterService(&MoneyTransaction_ServiceDesc, srv)
 }
 
-func _MoneyTransaction_MakeTransaction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(TransactionRequest)
-	if err := dec(in); err != nil {
-		return nil, err
+func _MoneyTransaction_MakeTransaction_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(TransactionRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
 	}
-	if interceptor == nil {
-		return srv.(MoneyTransactionServer).MakeTransaction(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/datafiles.MoneyTransaction/MakeTransaction",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MoneyTransactionServer).MakeTransaction(ctx, req.(*TransactionRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	return srv.(MoneyTransactionServer).MakeTransaction(m, &moneyTransactionMakeTransactionServer{stream})
+}
+
+type MoneyTransaction_MakeTransactionServer interface {
+	Send(*TransactionResponse) error
+	grpc.ServerStream
+}
+
+type moneyTransactionMakeTransactionServer struct {
+	grpc.ServerStream
+}
+
+func (x *moneyTransactionMakeTransactionServer) Send(m *TransactionResponse) error {
+	return x.ServerStream.SendMsg(m)
 }
 
 // MoneyTransaction_ServiceDesc is the grpc.ServiceDesc for MoneyTransaction service.
@@ -93,12 +119,13 @@ func _MoneyTransaction_MakeTransaction_Handler(srv interface{}, ctx context.Cont
 var MoneyTransaction_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "datafiles.MoneyTransaction",
 	HandlerType: (*MoneyTransactionServer)(nil),
-	Methods: []grpc.MethodDesc{
+	Methods:     []grpc.MethodDesc{},
+	Streams: []grpc.StreamDesc{
 		{
-			MethodName: "MakeTransaction",
-			Handler:    _MoneyTransaction_MakeTransaction_Handler,
+			StreamName:    "MakeTransaction",
+			Handler:       _MoneyTransaction_MakeTransaction_Handler,
+			ServerStreams: true,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
-	Metadata: "transfer.proto",
+	Metadata: "stream.proto",
 }
