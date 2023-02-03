@@ -15,6 +15,8 @@ spec:
         app: postgres
     spec:
       containers:
+        - name: redis
+          image: redis
         - name: postgres
           image: postgres
           ports:
