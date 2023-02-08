@@ -4,7 +4,6 @@ import (
 	"crypto/aes"
 	"crypto/cipher"
 	"encoding/base64"
-	"errors"
 )
 
 var (
@@ -20,9 +19,21 @@ func EncryptString(key, text string) (string, error) {
 	}
 
 	plain := []byte(text)
-	cfb := cipher.NewCBCEncrypter(block, initVector)
-	cipher := make([]byte, len(plain))
-	cfb.XORKeyStream(cipher, plain)
-	re9turn base64.StdEncoding.EncodeToString(cipher), nil
+	cfb := cipher.NewCFBEncrypter(block, initVector)
+	cipherenc := make([]byte, len(plain))
+	cfb.XORKeyStream(cipherenc, plain)
+	return base64.StdEncoding.EncodeToString(cipherenc), nil
 }
 
+func DecryptString(key, ciphertxt string) (string, error) {
+	block, err := aes.NewCipher([]byte(key))
+	if err != nil {
+		return "", err
+	}
+
+	chipertext, _ := base64.StdEncoding.DecodeString(ciphertxt)
+	cfb := cipher.NewCFBEncrypter(block, initVector)
+	plaintext := make([]byte, len(chipertext))
+	cfb.XORKeyStream(plaintext, chipertext)
+	return string(plaintext), nil
+}
