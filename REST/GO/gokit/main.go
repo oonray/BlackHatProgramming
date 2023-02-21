@@ -11,6 +11,7 @@ import (
 
 func main() {
 	logger := kitlog.NewLogfmtLogger(os.Stderr)
+
 	var svc hlp.EncryptService
 	svc = hlp.EncryptServiceInstance{}
 	svc = hlp.LoggingMiddleware{Logger: logger, Next: svc}
