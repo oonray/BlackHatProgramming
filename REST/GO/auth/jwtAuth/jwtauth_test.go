@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
 	"net/http"
 	"net/http/cookiejar"
@@ -10,9 +11,12 @@ import (
 	mux "github.com/gorilla/mux"
 )
 
-var router *mux.Router
-var server *httptest.Server
-var client http.Client
+var (
+	router *mux.Router
+	server *httptest.Server
+	client http.Client
+	resp   Response
+)
 
 func init() {
 	r := mux.NewRouter()
@@ -37,7 +41,44 @@ func TestHelthHandlerInit(t *testing.T) {
 	}
 	defer res.Body.Close()
 
+	// Should get error
 	if res.StatusCode != http.StatusForbidden {
+		t.Errorf("Wrong Status Code | status: %d", res.StatusCode)
+	}
+}
+
+func TestTokenHandlerInit(t *testing.T) {
+	res, err := client.PostForm(server.URL+"/getToken", map[string][]string{
+		"username": []string{"admin"},
+		"password": []string{"password"},
+	})
+
+	if err != nil {
+		t.Errorf("Could not make request | %s", err)
+	}
+	defer res.Body.Close()
+
+	err = json.NewDecoder(res.Body).Decode(&resp)
+	if err != nil {
+		t.Errorf("Could not parse request | %s", err)
+	}
+}
+
+func TestHelthHandler(t *testing.T) {
+	req, err := http.NewRequest("GET", server.URL+"/healthcheck", nil)
+	if err != nil {
+		t.Errorf("Could not create request | %s", err)
+	}
+
+	req.Header.Set("access_token", resp.Token)
+
+	res, err := client.Do(req)
+	if err != nil {
+		t.Errorf("Could not create request | %s", err)
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode == http.StatusForbidden {
 		t.Errorf("Wrong Status Code | status: %d", res.StatusCode)
 	}
 }

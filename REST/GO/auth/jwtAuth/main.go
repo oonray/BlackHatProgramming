@@ -36,17 +36,18 @@ func HealthcheckHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		response := make(map[string]string)
-		response["time"] = time.Now().String()
-		response["user"] = claims["username"].(string)
-		responseJSON, _ := json.Marshal(response)
-		w.Write(responseJSON)
-	} else {
+	claims, ok := token.Claims.(jwt.MapClaims)
+	if !ok && !token.Valid {
 		w.WriteHeader(http.StatusForbidden)
 		w.Write([]byte("Access Denied"))
-		return
 	}
+
+	response := make(map[string]string)
+	response["time"] = time.Now().String()
+	response["user"] = claims["username"].(string)
+	responseJSON, _ := json.Marshal(response)
+
+	w.Write(responseJSON)
 }
 
 func getTokenHandler(w http.ResponseWriter, r *http.Request) {
