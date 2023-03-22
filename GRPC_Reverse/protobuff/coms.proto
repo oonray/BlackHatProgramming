@@ -1,0 +1,21 @@
+syntax = "proto3";
+package reverse;
+option go_package = "./reversepb";
+
+service ReverseTCP {
+    rpc Execute(reverseRequest) returns (reverseResponse);
+}
+
+message std {
+    string in = 1;
+    string out = 2;
+    string err = 3;
+}
+
+message reverseRequest {
+    std std = 1;
+}
+
+message reverseResponse {
+    std std = 1;
+}
