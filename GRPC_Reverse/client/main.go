@@ -1,8 +1,10 @@
 package main
 
 import (
-	"fmt"
-	pb "reverse_grpc/reversepb"
+	"context"
+	grpc "google.golang.org/grpc"
+	"log"
+	pb "reverse-grpc-client/reversepb"
 )
 
 const (
@@ -17,9 +19,19 @@ func main() {
 	}
 	defer con.Close()
 
-	r, err := c.MakeTransaction(context.Background(),
+	c := pb.NewReverseTCPClient(con)
+	r, err := c.Execute(context.Background(),
 		&pb.ReverseRequest{
-			stdin: "ls", 
+			Std: &pb.Std{
+				In: "ls -lah",
+			},
 		},
+	)
+
+	if err != nil {
+		log.Fatalf("error %s", err)
+		return
 	}
+
+	log.Printf("%v", r)
 }

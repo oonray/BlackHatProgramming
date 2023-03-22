@@ -2,15 +2,15 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"net"
 	"os/exec"
-	pb "reverse_grpc/reversepb"
-	"time"
+	pb "reverse-grpc-server/reversepb"
 
 	grpc "google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"log"
-	"strings"
+	//"strings"
 )
 
 const (
@@ -20,13 +20,19 @@ const (
 type ReverseServer struct {
 }
 
-func (r *ReverseServer) Execute(in *pb.ReverseRequest) (*pb.ReverseResponse, error) {
-	response := &pb.ReverseResponse{}
+func (r *ReverseServer) Execute(c context.Context, in *pb.ReverseRequest) (*pb.ReverseResponse, error) {
+	response := &pb.ReverseResponse{
+		Std: &pb.Std{
+			Out: "Hello",
+		},
+	}
+
+	log.Printf("%s", in.Std.In)
 	var std_out bytes.Buffer
 	var std_err bytes.Buffer
 
-	cmd := exec.Command("/bin/bash")
-	cmd.Stdin = strings.NewReader(in.Stdin)
+	cmd := exec.Command("/bin/bash", "-c", in.Std.In)
+	//cmd.Stdin = strings.NewReader(in.Std.In)
 	cmd.Stdout = &std_out
 	cmd.Stderr = &std_err
 
@@ -35,8 +41,9 @@ func (r *ReverseServer) Execute(in *pb.ReverseRequest) (*pb.ReverseResponse, err
 		return response, err
 	}
 
-	response.Stdout = std_out.String()
-	response.Stderr = std_err.String()
+	response.Std.Out = std_out.String()
+	response.Std.Err = std_err.String()
+
 	return response, nil
 }
 
@@ -49,7 +56,7 @@ func main() {
 	s := grpc.NewServer()
 
 	srv := &ReverseServer{}
-	pb.RegisterMoneyTransactionServer(s, srv)
+	pb.RegisterReverseTCPServer(s, srv)
 	reflection.Register(s)
 
 	if err := s.Serve(lsn); err != nil {

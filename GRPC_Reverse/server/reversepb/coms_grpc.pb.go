@@ -47,7 +47,6 @@ func (c *reverseTCPClient) Execute(ctx context.Context, in *ReverseRequest, opts
 // for forward compatibility
 type ReverseTCPServer interface {
 	Execute(context.Context, *ReverseRequest) (*ReverseResponse, error)
-	mustEmbedUnimplementedReverseTCPServer()
 }
 
 // UnimplementedReverseTCPServer must be embedded to have forward compatible implementations.
