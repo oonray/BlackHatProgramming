@@ -15,8 +15,8 @@ link_libraries(${CURSES_LIBRARIES})
 include_directories(src)
 include_directories(inc)
 
-FILE(GLOB src "c_src/*.c")
+FILE(GLOB src "src/*.cpp")
 list(FILTER src EXCLUDE REGEX "main")
 
 #executable
-add_executable(snake src/main.c)
+add_executable(snake src/main.cpp)
