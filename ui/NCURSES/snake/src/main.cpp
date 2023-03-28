@@ -1,27 +1,9 @@
 #include <iostream>
-#include <ncurses.h>
+#include <screen.h>
 #include <string>
 
-class Screen {
-private:
-  WINDOW *window;
-
-public:
-  Screen();
-  ~Screen();
-  void Refresh();
-};
-
-Screen::Screen() {
-  initscr();
-  window = newwin(0, 0, 0, 0);
+int main(int argc, char *argv[]) {
+  Screen *s = new Screen();
+  getchar();
+  delete s;
 }
-
-Screen::~Screen() {
-  delwin(window);
-  endwin();
-}
-
-void Screen::Refresh() { wrefresh(window); }
-
-int main(int argc, char *argv[]) {}

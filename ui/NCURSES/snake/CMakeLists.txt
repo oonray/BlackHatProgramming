@@ -19,4 +19,4 @@ FILE(GLOB src "src/*.cpp")
 list(FILTER src EXCLUDE REGEX "main")
 
 #executable
-add_executable(snake src/main.cpp)
+add_executable(snake src/main.cpp ${src})
