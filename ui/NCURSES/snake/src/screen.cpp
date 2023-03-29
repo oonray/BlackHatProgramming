@@ -1,17 +1,25 @@
 #include <algorithm>
+#include <chrono>
 #include <curses.h>
 #include <ncurses.h>
 #include <screen.h>
+#include <thread>
 
 Screen::Screen() {
   initscr();
   raw();
   keypad(stdscr, TRUE);
   window = newwin(0, 0, 0, 0);
-  box(window, '|', '-');
   Refresh();
   snk = new Snake(3, 3);
-  Draw_Snake();
+  Clear_Draw();
+
+  std::chrono::seconds dura(1);
+  for (int i = 0; i < 10; i++) {
+    std::this_thread::sleep_for(dura);
+    snk->Move();
+    Clear_Draw();
+  }
 }
 
 Screen::~Screen() {
@@ -20,6 +28,13 @@ Screen::~Screen() {
 }
 
 void Screen::Refresh() { wrefresh(window); }
+void Screen::Clear() { wclear(window); }
+void Screen::Clear_Draw() {
+  wclear(window);
+  Draw_Snake();
+  Refresh();
+}
+
 int Screen::Draw_Snake() {
   std::for_each(snk->body->begin(), snk->body->end(),
                 [this](std::pair<int, int> *ptr) {

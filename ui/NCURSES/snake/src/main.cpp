@@ -4,6 +4,5 @@
 
 int main(int argc, char *argv[]) {
   Screen *s = new Screen();
-  getchar();
   delete s;
 }

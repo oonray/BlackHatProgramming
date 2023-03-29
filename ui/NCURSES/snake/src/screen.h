@@ -13,6 +13,8 @@ public:
   Screen();
   ~Screen();
   void Refresh();
+  void Clear();
+  void Clear_Draw();
   int Draw_Snake();
   int Draw_Char(char ch, int x, int y);
 };
