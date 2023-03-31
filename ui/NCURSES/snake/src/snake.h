@@ -6,7 +6,8 @@
 #include <utility>
 #include <vector>
 
-enum class Dir { UP = 0, DOWN = 1, LEFT = 2, RIGHT = 3 };
+enum class DIR { UPP = 0, DOWN = 1, LEFT = 2, RIGHT = 3 };
+
 struct Snake {
   std::vector<std::pair<int, int> *> *body;
   const std::pair<int, int> *dir;
@@ -19,7 +20,7 @@ struct Snake {
   ~Snake();
   int Move();
   int Grow();
-  int Chage_Direction(Dir d);
+  int Change_Direction(DIR d);
 };
 
 #endif // SNAKE_H_
