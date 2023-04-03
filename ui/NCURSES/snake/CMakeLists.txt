@@ -2,6 +2,8 @@
 cmake_minimum_required(VERSION "3.18")
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_CXX_COMPILER "clang++")
+set(CMAKE_CXX_STANDARD 23)
 enable_testing()
 include(CPack)
 
