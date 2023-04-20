@@ -1,4 +1,4 @@
-#include "fruit.h"
+#include <fruit.h>
 
 Fruit::Fruit(int ix, int iy, Snake *snk) { New_Loc(ix, iy); }
 
