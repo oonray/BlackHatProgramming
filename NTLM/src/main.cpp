@@ -7,10 +7,19 @@
 #include <utility>
 #include <vector>
 
-std::vector<std::thread *> *threads;
-std::vector<std::pair<std::string, std::string> *> creds;
+std::string help =
+    "help:\n\t-h\thelp\n\t-w\tuserlist\n\t-p\tpassword\n\t-u\turl";
 
-void Check(std::string user, std::string pass) { CURL *h = curl_easy_init(); }
+std::vector<std::thread *> *threads;
+std::vector<std::string> creds;
+std::string url;
+std::string wordlist;
+std::string pass;
+
+void Check(std::string user) {
+  CURL *h = curl_easy_init();
+  curl_easy_setopt(h, CURLOPT_URL, url.c_str());
+}
 
 int main(int argc, char *argv[]) {
   threads = new std::vector<std::thread *>;
@@ -18,24 +27,22 @@ int main(int argc, char *argv[]) {
   for (;;) {
     switch (getopt(argc, argv, "w:p:u:ht")) {
     case 'w':
-      printf("switch 'w' specified\n");
+      wordlist = optarg;
       continue;
     case 'p':
-      printf("switch 'p' specified\n");
+      pass = optarg;
       continue;
     case 'u':
-      printf("switch 'u' specified\n");
+      url = optarg;
       continue;
     case '?':
     case 'h':
     default:
-      printf("Help/Usage Example\n");
+      std::cout << help << '\n';
       break;
-
     case -1:
       break;
     }
-
     break;
   }
   return 0;
