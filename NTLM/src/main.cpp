@@ -11,7 +11,8 @@ std::string help =
     "help:\n\t-h\thelp\n\t-w\tuserlist\n\t-p\tpassword\n\t-u\turl";
 
 std::vector<std::thread *> *threads;
-std::vector<std::string> creds;
+std::vector<std::string> *creds;
+
 std::string url;
 std::string wordlist;
 std::string pass;
@@ -23,6 +24,7 @@ void Check(std::string user) {
 
 int main(int argc, char *argv[]) {
   threads = new std::vector<std::thread *>;
+  creds = new std::vector<std::string>;
 
   for (;;) {
     switch (getopt(argc, argv, "w:p:u:ht")) {
