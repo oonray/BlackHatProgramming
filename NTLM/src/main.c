@@ -1,3 +1,4 @@
+#include <bstring/bstrlib.h>
 #include <ca_vector.h>
 #include <curl/curl.h>
 
