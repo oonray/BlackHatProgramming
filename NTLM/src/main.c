@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
   check(users_s->qty > 0, "could not split wordlist");
   log_info("using %d usernames", users_s->qty);
 
-  pthread_t **threads = calloc(arg->threads, sizeof(pthread_t));
+  pthread_t **threads = calloc(arg->threads, sizeof(pthread_t *));
   check(threads != NULL, "could not allocate threads");
   int counter = 0;
   while (counter < users_s->qty) {
@@ -41,9 +41,9 @@ int main(int argc, char *argv[]) {
         .a = arg,
     };
 
-    pthread_t t;
-    pthread_create(&t, NULL, &test_username, P);
-    pthread_join(t, NULL);
+    threads[counter] = calloc(1, sizeof(pthread_t));
+    pthread_create(threads[counter], NULL, &test_username, P);
+    pthread_join(*threads[counter], NULL);
     //}
 
     // for (int i = 0; i < arg->threads; i++) {
