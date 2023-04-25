@@ -28,6 +28,8 @@ int main(int argc, char *argv[]) {
   check(users != NULL, "could not read file %s", bdata(arg->user_file));
 
   struct bstrList *users_s = bsplit(users, '\n');
+  check(users_s->qty > 0, "could not split wordlist");
+  log_info("using %d usernames", users_s->qty);
 
   threads = calloc(sizeof(threads), arg->threads);
   check(threads != NULL, "could not create threads");
@@ -35,7 +37,7 @@ int main(int argc, char *argv[]) {
   int counter = 0;
   while (counter < users_s->qty) {
     for (int i = 0; i < arg->threads; i++) {
-      log_info("trying %s", users_s->entry[i]);
+      log_info("trying %s", bdata(users_s->entry[i]));
       Param P = (Param){
           .username = users_s->entry[i],
           .a = arg,
