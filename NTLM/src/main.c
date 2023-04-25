@@ -41,10 +41,10 @@ int main(int argc, char *argv[]) {
         .a = arg,
     };
 
-    threads[counter] = calloc(1, sizeof(pthread_t));
-    pthread_create(threads[counter], NULL, &test_username, P);
-    pthread_join(*threads[counter], NULL);
-    free(threads[counter]);
+    threads[0] = calloc(1, sizeof(pthread_t));
+    pthread_create(threads[0], NULL, &test_username, P);
+    pthread_join(*threads[0], NULL);
+    free(threads[0]);
     //}
 
     // for (int i = 0; i < arg->threads; i++) {
