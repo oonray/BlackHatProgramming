@@ -13,6 +13,7 @@ int main(int argc, char *argv[]) {
   check(arg->password != NULL, "password is required");
   check(arg->url != NULL, "url is required");
   check(arg->user_file != NULL, "userlist is required");
+  check(arg->fqdn != NULL, "fqdn is required");
 
   // arguments parsed
   // ca_io_stream *userlist = ca_io_stream_new_file(arg->user_file, O_RDONLY,

@@ -17,7 +17,7 @@ int args_usage() {
 
 int args_parse(Args *a, int argc, char *argv[]) {
   int ch;
-  while ((ch = getopt(argc, argv, "U:u:p:t:h")) != -1) {
+  while ((ch = getopt(argc, argv, "U:u:p:t:f:h")) != -1) {
     switch (ch) {
     case 'u':
       a->user_file = bfromcstr(optarg);
@@ -30,6 +30,9 @@ int args_parse(Args *a, int argc, char *argv[]) {
       break;
     case 't':
       a->threads = atoi(optarg);
+      break;
+    case 'f':
+      a->fqdn = bfromcstr(optarg);
       break;
     case 'h':
     case '?':

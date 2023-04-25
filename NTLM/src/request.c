@@ -7,7 +7,8 @@ int test_username(bstring username, Args *a) {
   curl_easy_setopt(c, CURLOPT_URL, bdata(a->url));
   curl_easy_setopt(c, CURLOPT_HTTPAUTH, CURLAUTH_NTLM); // use ntml
   curl_easy_setopt(c, CURLOPT_FOLLOWLOCATION, 1L);
-  curl_easy_setopt(c, CURLOPT_USERNAME, bdata(username));
+  curl_easy_setopt(c, CURLOPT_USERNAME,
+                   bdata(bformat("%s\\%s", a->fqdn, username)));
   curl_easy_setopt(c, CURLOPT_PASSWORD, bdata(a->password));
   int stat = curl_easy_perform(c);
   int res;

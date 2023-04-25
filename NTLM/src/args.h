@@ -12,6 +12,7 @@ typedef struct Args {
   bstring url;
   bstring user_file;
   bstring password;
+  bstring fqdn;
 } Args;
 
 Args *args_create();
