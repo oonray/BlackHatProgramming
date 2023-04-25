@@ -39,12 +39,13 @@ int main(int argc, char *argv[]) {
           .username = users_s->entry[i],
           .a = arg,
       };
-      pthread_create(threads[i], NULL, &test_username, &P);
+      test_username(&P);
+      // pthread_create(threads[i], NULL, &test_username, &P);
     }
 
-    for (int i = 0; i < arg->threads; i++) {
-      pthread_join(*threads[i], NULL);
-    }
+    // for (int i = 0; i < arg->threads; i++) {
+    // pthread_join(*threads[i], NULL);
+    //}
   }
 
   free(threads);
