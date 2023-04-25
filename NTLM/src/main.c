@@ -3,7 +3,6 @@
 #include <ca_fileio.h>
 #include <ca_vector.h>
 #include <pthread.h>
-#include <sys/_pthread/_pthread_t.h>
 
 #include "args.h"
 #include "request.h"
