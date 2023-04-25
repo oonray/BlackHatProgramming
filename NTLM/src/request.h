@@ -5,6 +5,11 @@
 #include <curl/curl.h>
 #include <curl/easy.h>
 
-int test_username(bstring username, Args *a);
+typedef struct Param {
+  bstring username;
+  Args *a;
+} Param;
+
+void *test_username(void *arg);
 
 #endif // REQUEST_H_
