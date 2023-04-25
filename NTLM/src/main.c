@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
   check(users_s->qty > 0, "could not split wordlist");
   log_info("using %d usernames", users_s->qty);
 
-  pthread_t threads[arg->threads];
+  pthread_t *threads[arg->threads];
   int counter = 0;
   while (counter < users_s->qty) {
     // for (int i = 0; i < arg->threads; i++) {
@@ -39,8 +39,8 @@ int main(int argc, char *argv[]) {
         .username = users_s->entry[counter],
         .a = arg,
     };
-    pthread_create(&threads[counter], NULL, &test_username, &P);
-    pthread_join(threads[counter], NULL);
+    pthread_create(threads[counter], NULL, &test_username, &P);
+    pthread_join(*threads[counter], NULL);
     //}
 
     // for (int i = 0; i < arg->threads; i++) {
