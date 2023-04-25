@@ -7,10 +7,9 @@
 #include "args.h"
 #include "request.h"
 
-pthread_t **threads;
-
 int main(int argc, char *argv[]) {
   Args *arg = args_create();
+
   check(arg != NULL, "could not create args");
   check(args_parse(arg, argc, argv) == 0, "");
   check(arg->password != NULL, "password is required");
@@ -31,27 +30,24 @@ int main(int argc, char *argv[]) {
   check(users_s->qty > 0, "could not split wordlist");
   log_info("using %d usernames", users_s->qty);
 
-  threads = calloc(sizeof(threads), arg->threads);
-  check(threads != NULL, "could not create threads");
-
+  pthread_t threads[arg->threads];
   int counter = 0;
   while (counter < users_s->qty) {
-    for (int i = 0; i < arg->threads; i++) {
-      log_info("trying %s", bdata(users_s->entry[i]));
-      Param P = (Param){
-          .username = users_s->entry[i],
-          .a = arg,
-      };
-      test_username(&P);
-      // pthread_create(threads[i], NULL, &test_username, &P);
-    }
+    // for (int i = 0; i < arg->threads; i++) {
+    log_info("trying %s", bdata(users_s->entry[counter]));
+    Param P = (Param){
+        .username = users_s->entry[counter],
+        .a = arg,
+    };
+    pthread_create(&threads[counter], NULL, &test_username, &P);
+    pthread_join(threads[counter], NULL);
+    //}
 
     // for (int i = 0; i < arg->threads; i++) {
     // pthread_join(*threads[i], NULL);
     //}
+    counter++;
   }
-
-  free(threads);
 
   return 0;
 error:
