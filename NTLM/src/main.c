@@ -35,6 +35,7 @@ int main(int argc, char *argv[]) {
   int counter = 0;
   while (counter < users_s->qty) {
     for (int i = 0; i < arg->threads; i++) {
+      log_info("trying %s", users_s->entry[i]);
       Param P = (Param){
           .username = users_s->entry[i],
           .a = arg,
