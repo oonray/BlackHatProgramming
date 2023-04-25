@@ -36,13 +36,14 @@ int main(int argc, char *argv[]) {
   while (counter < users_s->qty) {
     // for (int i = 0; i < arg->threads; i++) {
     log_info("trying %s", bdata(users_s->entry[counter]));
-    Param P = (Param){
+    Param *P = &(Param){
         .username = users_s->entry[counter],
         .a = arg,
     };
 
-    pthread_create(threads[counter], NULL, &test_username, &P);
-    pthread_join(*threads[counter], NULL);
+    pthread_t t;
+    pthread_create(&t, NULL, &test_username, P);
+    pthread_join(t, NULL);
     //}
 
     // for (int i = 0; i < arg->threads; i++) {
