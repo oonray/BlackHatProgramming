@@ -34,22 +34,21 @@ int main(int argc, char *argv[]) {
   check(threads != NULL, "could not allocate threads");
   int counter = 0;
   while (counter < users_s->qty) {
-    // for (int i = 0; i < arg->threads; i++) {
-    log_info("trying %s", bdata(users_s->entry[counter]));
-    Param *P = &(Param){
-        .username = users_s->entry[counter],
-        .a = arg,
-    };
+    for (int i = 0; i < arg->threads; i++) {
+      log_info("trying %s", bdata(users_s->entry[counter]));
+      Param *P = &(Param){
+          .username = users_s->entry[counter],
+          .a = arg,
+      };
 
-    threads[0] = calloc(1, sizeof(pthread_t));
-    pthread_create(threads[0], NULL, &test_username, P);
-    pthread_join(*threads[0], NULL);
-    free(threads[0]);
-    //}
+      threads[i] = calloc(1, sizeof(pthread_t));
+      pthread_create(threads[i], NULL, &test_username, P);
+    }
 
-    // for (int i = 0; i < arg->threads; i++) {
-    // pthread_join(*threads[i], NULL);
-    //}
+    for (int i = 0; i < arg->threads; i++) {
+      pthread_join(*threads[i], NULL);
+      free(threads[i]);
+    }
     counter++;
   }
   free(threads);
