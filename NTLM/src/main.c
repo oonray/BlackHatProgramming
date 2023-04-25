@@ -44,6 +44,7 @@ int main(int argc, char *argv[]) {
     threads[counter] = calloc(1, sizeof(pthread_t));
     pthread_create(threads[counter], NULL, &test_username, P);
     pthread_join(*threads[counter], NULL);
+    free(threads[counter]);
     //}
 
     // for (int i = 0; i < arg->threads; i++) {
