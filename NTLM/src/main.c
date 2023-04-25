@@ -3,6 +3,7 @@
 #include <ca_fileio.h>
 #include <ca_vector.h>
 #include <pthread.h>
+#include <sys/_pthread/_pthread_t.h>
 
 #include "args.h"
 #include "request.h"
@@ -30,7 +31,8 @@ int main(int argc, char *argv[]) {
   check(users_s->qty > 0, "could not split wordlist");
   log_info("using %d usernames", users_s->qty);
 
-  pthread_t *threads[arg->threads];
+  pthread_t **threads = calloc(arg->threads, sizeof(pthread_t));
+  check(threads != NULL, "could not allocate threads");
   int counter = 0;
   while (counter < users_s->qty) {
     // for (int i = 0; i < arg->threads; i++) {
@@ -39,6 +41,7 @@ int main(int argc, char *argv[]) {
         .username = users_s->entry[counter],
         .a = arg,
     };
+
     pthread_create(threads[counter], NULL, &test_username, &P);
     pthread_join(*threads[counter], NULL);
     //}
@@ -48,9 +51,12 @@ int main(int argc, char *argv[]) {
     //}
     counter++;
   }
+  free(threads);
 
   return 0;
 error:
   args_usage();
+  if (threads)
+    free(threads);
   return 1;
 }
