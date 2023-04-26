@@ -32,17 +32,22 @@ void *valid_user(void *arg) {
 
   int open = ca_io_stream_pipe_open(v->p, CA_OUT);
   while (open != -1) {
-    ca_io_stream_io_read_pipe(v->p, CA_OUT);
-    bstring out = ca_io_stream_buff_read_pipe(v->p, CA_OUT);
+    bstring out = NULL;
+    if (ca_io_stream_io_read_pipe(v->p, CA_OUT) > 0) {
+      out = ca_io_stream_buff_read_pipe(v->p, CA_OUT);
+    }
 
     while (bstrcmp(out, bfromcstr("%&DONE!")) != 0) {
       int open = ca_io_stream_pipe_open(v->p, CA_OUT);
       if (open == -1) {
         return NULL;
       }
-      ca_vector_push(v->v, out);
-      ca_io_stream_io_read_pipe(v->p, CA_OUT);
-      bstring out = ca_io_stream_buff_read_pipe(v->p, CA_OUT);
+      if (out != NULL) {
+        ca_vector_push(v->v, out);
+      }
+      if (ca_io_stream_io_read_pipe(v->p, CA_OUT) > 0) {
+        out = ca_io_stream_buff_read_pipe(v->p, CA_OUT);
+      }
     }
   }
   return arg;
