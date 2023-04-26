@@ -38,7 +38,7 @@ void *valid_user(void *arg) {
     }
 
     while (bstrcmp(out, bfromcstr("%&DONE!")) != 0) {
-      int open = ca_io_stream_pipe_open(v->p, CA_OUT);
+      open = ca_io_stream_pipe_open(v->p, CA_OUT);
       if (open == -1) {
         return NULL;
       }
