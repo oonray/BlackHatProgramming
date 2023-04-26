@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
 
   // wait for consumer
   pthread_join(com, NULL);
-  // ca_vector_traverse(valid_usernames, print_user);
+  ca_vector_traverse(valid_usernames, print_user);
 
   return 0;
 error:

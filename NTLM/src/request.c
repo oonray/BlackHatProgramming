@@ -17,10 +17,13 @@ void *test_username(void *arg) {
   int res;
   curl_easy_getinfo(c, CURLINFO_HTTP_CODE, &res);
   if (res == 200) {
-    pthread_mutex_lock(p->m);
-    ca_io_stream_buff_write_pipe(p->p, CA_INN, p->username);
-    ca_io_stream_io_write_pipe(p->p, CA_INN);
-    pthread_mutex_unlock(p->m);
+    int open = ca_io_stream_pipe_open(v->p, CA_OUT);
+    if (open != -1) {
+      pthread_mutex_lock(p->m);
+      ca_io_stream_buff_write_pipe(p->p, CA_INN, p->username);
+      ca_io_stream_io_write_pipe(p->p, CA_INN);
+      pthread_mutex_unlock(p->m);
+    }
   }
   curl_easy_cleanup(c);
   return NULL;
