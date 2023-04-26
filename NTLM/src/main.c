@@ -68,17 +68,20 @@ int main(int argc, char *argv[]) {
     counter++;
   }
   free(threads);
+  log_info("threads done");
 
   // close consumer
   pthread_mutex_lock(&coms_mt);
   ca_io_stream_buff_write_pipe(coms, CA_INN, bfromcstr("%&DONE!"));
   ca_io_stream_io_write_pipe(coms, CA_INN);
   pthread_mutex_unlock(&coms_mt);
+
   pthread_mutex_destroy(&coms_mt);
   ca_io_stream_destroy_pipe(coms);
 
   // wait for consumer
   pthread_join(com, NULL);
+
   log_info("Found Usernames");
   ca_vector_traverse(valid_usernames, print_user);
 
