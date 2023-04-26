@@ -79,6 +79,7 @@ int main(int argc, char *argv[]) {
 
   // wait for consumer
   pthread_join(com, NULL);
+  log_info("Found Usernames");
   ca_vector_traverse(valid_usernames, print_user);
 
   return 0;
