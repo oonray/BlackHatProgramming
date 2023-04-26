@@ -1,5 +1,5 @@
 #include "request.h"
-#include "ca_vector.h"
+#include <ca_vector.h>
 #include <curl/curl.h>
 #include <curl/easy.h>
 #include <pthread.h>
@@ -41,6 +41,7 @@ void *valid_user(void *arg) {
         return NULL;
       }
       ca_vector_push(v->v, out);
+      ca_io_stream_io_read_pipe(v->p, CA_OUT);
       bstring out = ca_io_stream_buff_read_pipe(v->p, CA_OUT);
     }
   }
