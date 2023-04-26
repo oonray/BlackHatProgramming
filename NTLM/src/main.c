@@ -84,7 +84,5 @@ int main(int argc, char *argv[]) {
   return 0;
 error:
   args_usage();
-  if (threads)
-    free(threads);
   return 1;
 }
