@@ -40,17 +40,14 @@ void *valid_user(void *arg) {
       out = ca_io_stream_buff_read_pipe(v->p, CA_OUT);
     }
 
-    while (bstrcmp(out, bfromcstr("%&DONE!")) != 0) {
-      open = ca_io_stream_pipe_open(v->p, CA_OUT);
-      if (open == -1) {
-        return NULL;
-      }
+    while (open != -1) {
       if (out != NULL) {
         ca_vector_push(v->v, out);
       }
       if (ca_io_stream_io_read_pipe(v->p, CA_OUT) > 0) {
         out = ca_io_stream_buff_read_pipe(v->p, CA_OUT);
       }
+      open = ca_io_stream_pipe_open(v->p, CA_OUT);
     }
   }
   return arg;
