@@ -6,7 +6,7 @@
 #include <ca_vector.h>
 #include <curl/curl.h>
 #include <curl/easy.h>
-#include <sys/_pthread/_pthread_mutex_t.h>
+#include <pthread.h>
 
 typedef struct Param {
   bstring username;
