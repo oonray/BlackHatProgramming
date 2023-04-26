@@ -13,7 +13,7 @@ void *test_username(void *arg) {
   curl_easy_setopt(c, CURLOPT_USERNAME,
                    bdata(bformat("%s\\%s", p->a->fqdn, p->username)));
   curl_easy_setopt(c, CURLOPT_PASSWORD, bdata(p->a->password));
-  int stat = curl_easy_perform(c);
+  curl_easy_perform(c);
   int res;
   curl_easy_getinfo(c, CURLINFO_HTTP_CODE, &res);
   if (res == 200) {
