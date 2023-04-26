@@ -53,6 +53,7 @@ void *valid_user(void *arg) {
       }
     }
   }
+  log_info("consumer done");
   return arg;
 error:
   return NULL;
