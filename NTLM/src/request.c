@@ -36,12 +36,12 @@ void *valid_user(void *arg) {
     bstring out = ca_io_stream_buff_read_pipe(v->p, CA_OUT);
 
     while (bstrcmp(out, bfromcstr("%&DONE!")) != 0) {
-      ca_vector_push(v->v, out);
-      bstring out = ca_io_stream_buff_read_pipe(v->p, CA_OUT);
       int open = ca_io_stream_pipe_open(v->p, CA_OUT);
       if (open == -1) {
-        return arg;
+        return NULL;
       }
+      ca_vector_push(v->v, out);
+      bstring out = ca_io_stream_buff_read_pipe(v->p, CA_OUT);
     }
   }
   return arg;

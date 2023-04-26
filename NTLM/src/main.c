@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
   check(arg->user_file != NULL, "userlist is required");
   check(arg->fqdn != NULL, "fqdn is required");
 
-  ca_vector *valid_usernames = ca_vector_new(sizeof(bstring), 100);
+  ca_vector *valid_usernames = ca_vector_new(sizeof(bstring), 5);
   check(valid_usernames != NULL, "could not create valid usernames vector");
 
   ca_io_stream_pipe *coms = ca_io_stream_new_pipe(0);
