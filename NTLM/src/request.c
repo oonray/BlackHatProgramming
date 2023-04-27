@@ -4,6 +4,11 @@
 #include <curl/easy.h>
 #include <pthread.h>
 
+static size_t write_callback(char *ptr, size_t size, size_t nmemb,
+                             void *userdata) {
+  return size * nmemb;
+}
+
 void *test_username(void *arg) {
   Param *p = (Param *)arg;
   CURL *c = curl_easy_init();
@@ -14,6 +19,8 @@ void *test_username(void *arg) {
                    bdata(bformat("%s\\%s", p->a->fqdn, p->username)));
   curl_easy_setopt(c, CURLOPT_NOPROGRESS, 1);
   curl_easy_setopt(c, CURLOPT_VERBOSE, 0);
+  curl_easy_setopt(c, CURLOPT_WRITEFUNCTION, write_callback);
+  curl_easy_setopt(c, CURLOPT_WRITEDATA, NULL);
   curl_easy_setopt(c, CURLOPT_PASSWORD, bdata(p->a->password));
 
   if (p->a->proxy != NULL) {
