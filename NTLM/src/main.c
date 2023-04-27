@@ -52,6 +52,10 @@ int main(int argc, char *argv[]) {
   int counter = 0;
   while (counter < users_s->qty) {
     for (int i = 0; i < arg->threads; i++) {
+      if (counter > arg->threads) {
+        break;
+      }
+
       threads[i] = calloc(1, sizeof(pthread_t));
       pthread_create(threads[i], NULL, &test_username,
                      (void *)&(Param){
