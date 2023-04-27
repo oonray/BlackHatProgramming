@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
   int counter = 0;
   while (counter < users_s->qty) {
     for (int i = 0; i < arg->threads; i++) {
-      if (counter > arg->threads) {
+      if (counter > users_s->qty) {
         break;
       }
 
