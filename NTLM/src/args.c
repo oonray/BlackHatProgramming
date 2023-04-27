@@ -11,8 +11,12 @@ error:
 }
 
 int args_usage() {
-  printf("Usage:\n\t-u\tuserlist\n\t-U\turl\n\t-p\tpassword\n\t-"
-         "t\thread\topional\tdefault 5\n\t-f\tfqdn\n\t-P\tproxy\n\r");
+  printf("Usage:\n\t"
+         "-u\tuserlist\n\t"
+         "-U\turl\n\t-p\tpassword\n\t"
+         "-t\thread\topional\tdefault 5\n\t"
+         "-f\tfqdn\n\t"
+         "-P\tproxy\n\r");
   return 0;
 }
 
@@ -37,6 +41,7 @@ int args_parse(Args *a, int argc, char *argv[]) {
       break;
     case 'P':
       a->proxy = bfromcstr(optarg);
+      break;
     case 'h':
     case '?':
     default:

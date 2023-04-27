@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
   Args *arg = args_create();
 
   check(arg != NULL, "could not create args");
-  check(args_parse(arg, argc, argv) == 0, "");
+  check(args_parse(arg, argc, argv) == 0, "Could not parse args");
   check(arg->password != NULL, "password is required");
   check(arg->url != NULL, "url is required");
   check(arg->user_file != NULL, "userlist is required");

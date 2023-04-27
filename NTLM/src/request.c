@@ -30,6 +30,7 @@ void *test_username(void *arg) {
       pthread_mutex_unlock(p->m);
     }
   }
+
   curl_easy_cleanup(c);
   return NULL;
 }
