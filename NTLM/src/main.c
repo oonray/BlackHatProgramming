@@ -39,8 +39,8 @@ int main(int argc, char *argv[]) {
   check(users_s->qty > 0, "could not split wordlist");
   log_info("using %d usernames", users_s->qty);
 
-  pthread_t com;
-  pthread_create(&com, NULL, &valid_user,
+  pthread_t com_out, com_inn;
+  pthread_create(&com_out, NULL, &valid_user,
                  (void *)&(UserParam){
                      .v = valid_usernames,
                      .p = coms,

@@ -8,20 +8,17 @@
 #include <curl/easy.h>
 #include <pthread.h>
 
-typedef struct Param {
-  bstring username;
+typedef struct worker {
   Args *a;
-  ca_io_stream_pipe *p;
+  ca_io_stream_pipe *in;
+  ca_io_stream_pipe *out;
   pthread_mutex_t *m;
-} Param;
-
-typedef struct UserParam {
   ca_vector *v;
-  ca_io_stream_pipe *p;
-  int running;
-} UserParam;
+} worker;
 
-void *test_username(void *arg);
+void *test_worker(void *arg);
+int test_username(bstring username, bstring password, bstring url, bstring fqdn,
+                  bstring proxy);
 void *valid_user(void *arg);
 int print_user(void *data);
 
