@@ -41,26 +41,43 @@ int print_user(void *data) {
   return 0;
 }
 
+int pipe_open(worker *a, int num, int io) {
+  pthread_mutex_lock(a->mt[num]);
+  int open = ca_io_stream_pipe_open(a->coms[num], io);
+  pthread_mutex_unlock(a->mt[num]);
+  return open;
+}
+
 void *test_worker(void *arg) {
   worker *a = (worker *)arg;
-  // open
-  int open_inn = ca_io_stream_pipe_open(a->in, CA_OUT);
-  int open_out = ca_io_stream_pipe_open(a->out, CA_INN);
+
+  int open_inn = pipe_open(a, CA_INN, CA_OUT);
+  int open_out = pipe_open(a, CA_OUT, CA_INN);
+
   bstring username;
   while (open_inn != -1 && open_out != -1) {
     // wait for data
-    if (ca_io_stream_io_read_pipe(a->in, CA_OUT) <= 0) {
+    pthread_mutex_lock(a->mt[CA_INN]);
+    if (ca_io_stream_io_read_pipe(a->coms[CA_INN], CA_OUT) <= 0) {
+      pthread_mutex_unlock(a->mt[CA_INN]);
       continue;
     }
     // we have input data
-    username = ca_io_stream_buff_read_pipe(a->in, CA_OUT);
+    username = ca_io_stream_buff_read_pipe(a->coms[CA_INN], CA_OUT);
+    pthread_mutex_unlock(a->mt[CA_INN]);
+
     if (test_username(username, a->a->password, a->a->url, a->a->fqdn,
                       a->a->proxy) != 0) {
       continue;
     }
 
-    ca_io_stream_buff_write_pipe(a->out, CA_OUT, username);
-    ca_io_stream_io_write_pipe(a->out, CA_OUT);
+    pthread_mutex_lock(a->mt[CA_OUT]);
+    ca_io_stream_buff_write_pipe(a->coms[CA_OUT], CA_OUT, username);
+    ca_io_stream_io_write_pipe(a->coms[CA_OUT], CA_OUT);
+    pthread_mutex_unlock(a->mt[CA_OUT]);
+
+    open_inn = pipe_open(a, CA_INN, CA_OUT);
+    open_out = pipe_open(a, CA_OUT, CA_INN);
   }
   return NULL;
 }

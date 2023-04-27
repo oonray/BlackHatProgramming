@@ -10,9 +10,8 @@
 
 typedef struct worker {
   Args *a;
-  ca_io_stream_pipe *in;
-  ca_io_stream_pipe *out;
-  pthread_mutex_t *m;
+  ca_io_stream_pipe **coms;
+  pthread_mutex_t **mt;
   ca_vector *v;
 } worker;
 
