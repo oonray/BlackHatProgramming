@@ -12,6 +12,8 @@ void *test_username(void *arg) {
   curl_easy_setopt(c, CURLOPT_FOLLOWLOCATION, 1L);
   curl_easy_setopt(c, CURLOPT_USERNAME,
                    bdata(bformat("%s\\%s", p->a->fqdn, p->username)));
+  curl_easy_setopt(c, CURLOPT_NOPROGRESS, 1);
+  curl_easy_setopt(c, CURLOPT_VERBOSE, 0);
   curl_easy_setopt(c, CURLOPT_PASSWORD, bdata(p->a->password));
 
   if (p->a->proxy != NULL) {
