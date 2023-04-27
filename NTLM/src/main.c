@@ -59,13 +59,13 @@ int main(int argc, char *argv[]) {
                          .a = arg,
                          .m = &coms_mt,
                      });
+      counter++;
     }
 
     for (int i = 0; i < arg->threads; i++) {
       pthread_join(*threads[i], NULL);
       free(threads[i]);
     }
-    counter++;
   }
   free(threads);
   log_info("threads done");
