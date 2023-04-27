@@ -13,10 +13,15 @@ void *test_username(void *arg) {
   curl_easy_setopt(c, CURLOPT_USERNAME,
                    bdata(bformat("%s\\%s", p->a->fqdn, p->username)));
   curl_easy_setopt(c, CURLOPT_PASSWORD, bdata(p->a->password));
+
+  if (p->a->proxy != NULL) {
+    curl_easy_setopt(c, CURLOPT_PROXY, bdata(p->a->proxy));
+  }
+
   curl_easy_perform(c);
-  int res;
-  curl_easy_getinfo(c, CURLINFO_HTTP_CODE, &res);
-  if (res == 200) {
+  long code;
+  curl_easy_getinfo(c, CURLINFO_HTTP_CODE, &code);
+  if (code == 200) {
     int open = ca_io_stream_pipe_open(p->p, CA_INN);
     if (open != -1) {
       pthread_mutex_lock(p->m);

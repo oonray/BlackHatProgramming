@@ -4,6 +4,7 @@ Args *args_create() {
   Args *args = calloc(sizeof(Args), 1);
   check(args != NULL, "could not create args");
   args->threads = 5;
+  args->proxy = NULL;
   return args;
 error:
   return NULL;
@@ -11,13 +12,13 @@ error:
 
 int args_usage() {
   printf("Usage:\n\t-u\tuserlist\n\t-U\turl\n\t-p\tpassword\n\t-"
-         "t\thread\topional\tdefault 5\n\t-f\tfqdn\n\r");
+         "t\thread\topional\tdefault 5\n\t-f\tfqdn\n\t-P\tproxy\n\r");
   return 0;
 }
 
 int args_parse(Args *a, int argc, char *argv[]) {
   int ch;
-  while ((ch = getopt(argc, argv, "U:u:p:t:f:h")) != -1) {
+  while ((ch = getopt(argc, argv, "U:u:p:t:f:P:h")) != -1) {
     switch (ch) {
     case 'u':
       a->user_file = bfromcstr(optarg);
@@ -34,6 +35,8 @@ int args_parse(Args *a, int argc, char *argv[]) {
     case 'f':
       a->fqdn = bfromcstr(optarg);
       break;
+    case 'P':
+      a->proxy = bfromcstr(optarg);
     case 'h':
     case '?':
     default:
