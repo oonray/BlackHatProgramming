@@ -11,7 +11,6 @@ static size_t write_callback(char *ptr, size_t size, size_t nmemb,
 
 int test_username(bstring username, bstring password, bstring url, bstring fqdn,
                   bstring proxy) {
-  /*
   CURL *c = curl_easy_init();
   curl_easy_setopt(c, CURLOPT_URL, bdata(url));
   curl_easy_setopt(c, CURLOPT_HTTPAUTH, CURLAUTH_NTLM); // use ntml
@@ -31,9 +30,11 @@ int test_username(bstring username, bstring password, bstring url, bstring fqdn,
   curl_easy_perform(c);
   long code;
   curl_easy_getinfo(c, CURLINFO_HTTP_CODE, &code);
-  return code;
-  */
+  curl_easy_cleanup(c);
+  check(code == 200, "");
   return 0;
+error:
+  return -1;
 }
 
 int print_user(void *data) {
