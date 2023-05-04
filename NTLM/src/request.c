@@ -15,13 +15,12 @@ int test_username(bstring username, bstring password, bstring url, bstring fqdn,
   curl_easy_setopt(c, CURLOPT_URL, bdata(url));
   curl_easy_setopt(c, CURLOPT_HTTPAUTH, CURLAUTH_NTLM); // use ntml
   curl_easy_setopt(c, CURLOPT_FOLLOWLOCATION, 1L);
-  curl_easy_setopt(c, CURLOPT_USERNAME,
-                   bdata(bformat("%s\\%s", fqdn, username)));
+  curl_easy_setopt(c, CURLOPT_USERPWD,
+                   bdata(bformat("%s\\%s:%s", fqdn, username, password)));
   curl_easy_setopt(c, CURLOPT_NOPROGRESS, 1);
   curl_easy_setopt(c, CURLOPT_VERBOSE, 0);
   curl_easy_setopt(c, CURLOPT_WRITEFUNCTION, write_callback);
   curl_easy_setopt(c, CURLOPT_WRITEDATA, NULL);
-  curl_easy_setopt(c, CURLOPT_PASSWORD, bdata(password));
 
   if (proxy != NULL) {
     curl_easy_setopt(c, CURLOPT_PROXY, bdata(proxy));
