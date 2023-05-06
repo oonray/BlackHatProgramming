@@ -10,16 +10,18 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 endif()
 
 include_directories("src")
+link_libraries(ca_string ca_vector ca_fileio ca_ringbuffer ca_munit)
 
 #caaa
-link_libraries(ca_string ca_vector ca_fileio ca_ringbuffer ca_munit)
 
 find_package(CURL REQUIRED)
 include_directories(${CURL_INCLUDE_DIR})
 link_libraries(CURL::libcurl)
 
-add_executable(ntmlbrute src/args.c src/request.c src/main.c)
-add_executable(ntmlbrute_tests src/request.c)
+add_library(ntl_o OBJECT src/args.c src/request.c )
+add_executable(ntmlbrute $<TARGET_OBJECTS:ntl_o> src/main.c)
 
+add_executable(ntmlbrute_tests $<TARGET_OBJECTS:ntl_o> tests/ntmltest.c)
 target_link_libraries(ntmlbrute_tests ca_munit)
+
 add_test(NAME ntmlbrute_tests COMMAND ntmlbrute_tests)
